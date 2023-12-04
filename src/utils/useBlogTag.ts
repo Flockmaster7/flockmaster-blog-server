@@ -1,9 +1,9 @@
 import BlogService from '../service/blogService';
-import TagService from '../service/TagService';
+import TagServiceImpl from '../service/Implement/TagServiceImpl';
 import { TagType } from '../types/tag';
 
 const blogService = new BlogService();
-const tagService = new TagService();
+const tagService = new TagServiceImpl();
 
 // 根据博客id获取对应的tag列表
 export const useGetBlogTagById = async (
