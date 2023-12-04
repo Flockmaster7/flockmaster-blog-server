@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+      "target": "es6", // 目标js版本
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true, 
+      "useDefineForClassFields": true, 
+      "module": "CommonJS",
+      "moduleResolution": "node",
+      "outDir": "./dist",
+      "esModuleInterop": true, 
+      "strictPropertyInitialization": false,
+      "forceConsistentCasingInFileNames": true,
+      "strict": true, 
+      "skipLibCheck": true 
+    },
+     "include": [
+      "src/**/*",
+      "src/**/*.ts",
+      "src/**/*.js",
+      "index.d.ts"
+    ],
+    "exclude": ["node_modules", "dist", "public"],
+    "ts-node": { "esm": true }
+}
