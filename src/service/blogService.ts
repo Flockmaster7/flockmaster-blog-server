@@ -11,6 +11,7 @@ import User_Blog_CollectService from './user_blog_collectService';
 import User_Blog_Like from '../model/User_Blog_Like';
 import User_Blog_Collect from '../model/User_Blog_Collect';
 import User_FocusService from './user_focusService';
+import sequelize from '../db/mysql';
 
 const blogTagService = new Bolg_tagService();
 const user_blog_likeService = new User_Blog_LikeService();
@@ -226,15 +227,10 @@ class BlogService {
 		const { count, rows } = await Blog.findAndCountAll({
 			attributes: [
 				'id',
-				'author',
 				'title',
-				'classify',
-				'blog_image',
-				'blog_read',
-				'blog_like',
-				'blog_collect',
 				'createdAt',
-				'updatedAt'
+				[sequelize.fn('date', sequelize.col('Blog.createdAt')), 'date'],
+				[sequelize.fn('year', sequelize.col('Blog.createdAt')), 'year']
 			],
 			include: [
 				{
