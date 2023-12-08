@@ -43,6 +43,13 @@ export default class LeaveWords extends Model<LeaveWords> {
 	})
 	user_id: number;
 
+	@Column({
+		type: DataType.INTEGER,
+		defaultValue: 0,
+		comment: '点赞'
+	})
+	dianzan: number;
+
 	@DeletedAt
 	@Column({
 		type: DataType.DATE,

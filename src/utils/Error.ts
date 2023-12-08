@@ -73,6 +73,8 @@ export default {
 	getLeaveWordsListError: errorForm('50002', '获取留言列表失败', ''),
 	removeLeaveWordsError: errorForm('50003', '删除留言失败', ''),
 	updateLeaveWordsError: errorForm('50004', '修改留言失败', ''),
+	dianzanLeavewordsError: errorForm('50005', '点赞失败', ''),
+	cancelDianzanLeavewordsError: errorForm('50006', '取消点赞失败', ''),
 	createAlbumError: errorForm('60001', '添加相册失败', ''),
 	updateAlbumError: errorForm('60002', '修改相册失败', ''),
 	removeAlbumError: errorForm('60003', '删除作品失败', ''),

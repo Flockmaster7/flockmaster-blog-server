@@ -21,6 +21,10 @@ interface LeaveWordsService {
 	modifyLeaveWords(leaveWords: LeaveWords, id: number): Promise<boolean>;
 
 	getLeaveWordCount(): Promise<number>;
+
+	dianzan(id: number): Promise<boolean>;
+
+	cancelDianzan(id: number): Promise<boolean>;
 }
 
 export default LeaveWordsService;

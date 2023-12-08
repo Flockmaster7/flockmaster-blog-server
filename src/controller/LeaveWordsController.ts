@@ -93,6 +93,39 @@ class LeaveWordsController {
 			ctx.app.emit('error', ERROR.updateLeaveWordsError, ctx, error);
 		}
 	}
+
+	async dianzanLeavewords(ctx: Context) {
+		try {
+			const id = ctx.params.id;
+			const res = await leaveWordsService.dianzan(id);
+			if (res) {
+				ctx.body = new Result(200, '点赞成功', 'success');
+			} else {
+				ctx.app.emit('error', ERROR.dianzanLeavewordsError, ctx);
+			}
+		} catch (error) {
+			ctx.app.emit('error', ERROR.dianzanLeavewordsError, ctx, error);
+		}
+	}
+
+	async cancelDianzanLeavewords(ctx: Context) {
+		try {
+			const id = ctx.params.id;
+			const res = await leaveWordsService.cancelDianzan(id);
+			if (res) {
+				ctx.body = new Result(200, '取消点赞成功', 'success');
+			} else {
+				ctx.app.emit('error', ERROR.cancelDianzanLeavewordsError, ctx);
+			}
+		} catch (error) {
+			ctx.app.emit(
+				'error',
+				ERROR.cancelDianzanLeavewordsError,
+				ctx,
+				error
+			);
+		}
+	}
 }
 
 export default LeaveWordsController;

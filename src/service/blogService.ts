@@ -74,6 +74,7 @@ class BlogService {
 				'blog_read',
 				'blog_like',
 				'content_text',
+				'content_html',
 				'blog_collect',
 				'createdAt',
 				'updatedAt'

@@ -3,7 +3,47 @@ import User from '../../model/User';
 import LeaveWordsService from '../LeaveWordsService';
 
 class LeaveWordsServiceImpl implements LeaveWordsService {
-	// 发布评论
+	async dianzan(id: number): Promise<boolean> {
+		const leaveWord = await LeaveWords.findOne({
+			where: {
+				id
+			}
+		});
+		if (leaveWord) {
+			const res = await this.modifyLeaveWords(
+				{
+					dianzan: leaveWord?.dataValues.dianzan + 1
+				},
+				id
+			);
+			return res;
+		} else {
+			return false;
+		}
+	}
+
+	async cancelDianzan(id: number): Promise<boolean> {
+		const leaveWord = await LeaveWords.findOne({
+			where: {
+				id
+			}
+		});
+		if (leaveWord && leaveWord.dataValues.dianzan > 0) {
+			const res = await LeaveWords.update(
+				{ dianzan: leaveWord?.dataValues.dianzan - 1 },
+				{
+					where: {
+						id
+					}
+				}
+			);
+			return res[0] > 0 ? true : false;
+		} else {
+			return false;
+		}
+	}
+
+	// 发布留言
 	async createLeaveWords(wrapper: any) {
 		const res = await LeaveWords.create(wrapper as LeaveWords);
 		if (wrapper.parent_id) {
@@ -123,13 +163,22 @@ class LeaveWordsServiceImpl implements LeaveWordsService {
 	}
 
 	//修改留言
-	async modifyLeaveWords(leaveWords: LeaveWords, id: number) {
-		const res = await LeaveWords.update(leaveWords, {
+	async modifyLeaveWords(leaveWords: Partial<LeaveWords>, id: number) {
+		const leaveWord = await LeaveWords.findOne({
 			where: {
 				id
 			}
 		});
-		return res[0] > 0 ? true : false;
+		if (leaveWord) {
+			const res = await LeaveWords.update(leaveWords, {
+				where: {
+					id
+				}
+			});
+			return res[0] > 0 ? true : false;
+		} else {
+			return false;
+		}
 	}
 
 	async getLeaveWordCount() {

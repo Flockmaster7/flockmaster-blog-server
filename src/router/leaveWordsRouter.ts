@@ -39,4 +39,18 @@ router.get(
 	leaveWordsController.getChildrenLeaveWordList
 );
 
+router.post(
+	'/leaveWord/dianzan/:id',
+	auth,
+	validatorId,
+	leaveWordsController.dianzanLeavewords
+);
+
+router.post(
+	'/leaveWord/cancelDianzan/:id',
+	auth,
+	validatorId,
+	leaveWordsController.cancelDianzanLeavewords
+);
+
 module.exports = router;
