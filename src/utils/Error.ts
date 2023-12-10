@@ -86,5 +86,11 @@ export default {
 	addVisitError: errorForm('70001', '增加网站访问量失败', ''),
 	getWebsiteInfoError: errorForm('70002', '获取网站资讯失败', ''),
 	getLatestCommentError: errorForm('70003', '获取首页最新评论成功', ''),
-	getgetHotBlogsError: errorForm('70004', '获取首页热门文章成功', '')
+	getgetHotBlogsError: errorForm('70004', '获取首页热门文章成功', ''),
+	getCircleFriendListError: errorForm('80001', '获取朋友圈失败', ''),
+	postCircleFriendError: errorForm('80002', '发布朋友圈失败', ''),
+	removeCircleFriendError: errorForm('80003', '删除朋友圈失败', ''),
+	updateCircleFriendError: errorForm('80004', '修改朋友圈失败', ''),
+	dianzanCircleFriendError: errorForm('80005', '点赞失败', ''),
+	cancelDianzanCircleFriendError: errorForm('80006', '取消点赞失败', '')
 };

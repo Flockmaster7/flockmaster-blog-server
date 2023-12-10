@@ -4,6 +4,13 @@ export interface ResultType<T> {
 	message: string;
 }
 
+export interface PageType<T> {
+	total: number;
+	rows: T[];
+	pageNum: number;
+	pageSize: number;
+}
+
 export interface WebsiteType {
 	website_visit: string | number;
 	website_visit_today: string | number;
