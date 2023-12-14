@@ -71,24 +71,30 @@ class CircleFriendServiceImpl implements CircleFriendService {
 
 	async addCircleFriend(circleFriend: CircleFriend): Promise<boolean> {
 		const cirFriend = await CircleFriend.create(circleFriend);
-		const circleFriendImages = circleFriend.images.map((item) => {
-			const circleFriendImage = new CircleFriendImage();
-			circleFriendImage.circleFriendId = cirFriend.id;
-			circleFriendImage.imageUrl = item.imageUrl;
-			return circleFriendImage;
-		});
-		const circleFriendVideos = circleFriend.videos.map((item) => {
-			const circleFriendVideo = new CircleFriendVideo();
-			circleFriendVideo.circleFriendId = cirFriend.id;
-			circleFriendVideo.videoUrl = item.videoUrl;
-			return circleFriendVideo;
-		});
-		const res1 = await this.circleFriendVideoService.addVideo(
-			circleFriendVideos
-		);
-		const res2 = await this.circleFriendImageService.addImage(
-			circleFriendImages
-		);
+		let res1 = true,
+			res2 = true;
+		if (circleFriend.images) {
+			const circleFriendImages = circleFriend.images.map((item) => {
+				const circleFriendImage = new CircleFriendImage();
+				circleFriendImage.circleFriendId = cirFriend.id;
+				circleFriendImage.imageUrl = item.imageUrl;
+				return circleFriendImage;
+			});
+			res2 = await this.circleFriendImageService.addImage(
+				circleFriendImages
+			);
+		}
+		if (circleFriend.videos) {
+			const circleFriendVideos = circleFriend.videos.map((item) => {
+				const circleFriendVideo = new CircleFriendVideo();
+				circleFriendVideo.circleFriendId = cirFriend.id;
+				circleFriendVideo.videoUrl = item.videoUrl;
+				return circleFriendVideo;
+			});
+			res1 = await this.circleFriendVideoService.addVideo(
+				circleFriendVideos
+			);
+		}
 		if (res1 && res2) return true;
 		else return false;
 	}

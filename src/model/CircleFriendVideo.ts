@@ -21,7 +21,7 @@ class CircleFriendVideo extends Model<CircleFriendVideo> {
 	circleFriendId: number;
 
 	@Column({
-		type: DataType.CHAR(64),
+		type: DataType.STRING,
 		allowNull: true,
 		comment: '视频url',
 		field: 'video_url'
