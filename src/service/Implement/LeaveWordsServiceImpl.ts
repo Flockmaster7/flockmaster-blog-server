@@ -70,43 +70,16 @@ class LeaveWordsServiceImpl implements LeaveWordsService {
 					model: User,
 					as: 'user',
 					attributes: ['id', 'name', 'user_image']
-				},
-				{
-					model: LeaveWords,
-					as: 'children',
-					include: [
-						{
-							model: User,
-							as: 'user',
-							attributes: ['id', 'name', 'user_image']
-						},
-						{
-							model: LeaveWords,
-							as: 'targetLeaveWords',
-							include: [
-								{
-									model: User,
-									as: 'user',
-									attributes: ['id', 'name', 'user_image']
-								}
-							]
-						}
-					],
-					limit: 3,
-					order: [['createdAt', 'DESC']]
 				}
 			],
 			limit: pageSize * 1,
 			offset: offset,
 			order: [['createdAt', 'DESC']]
 		});
-		// 查询评论总数
-		const total = await LeaveWords.count();
 		return {
 			pageNum,
 			pageSize,
-			total,
-			count,
+			total: count,
 			rows: rows
 		};
 	}
