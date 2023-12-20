@@ -152,4 +152,20 @@ router.get(
 	blogController.getRecommendBlogList
 );
 
+router.post(
+	'/dianzan/:id',
+	auth,
+	validatorId,
+	commentController.dianzanComment
+);
+
+router.post(
+	'/cancelDianzan/:id',
+	auth,
+	validatorId,
+	commentController.cancelDianzanComment
+);
+
+router.get('/getUserDianzanIdList', auth, commentController.getDianzanList);
+
 module.exports = router;

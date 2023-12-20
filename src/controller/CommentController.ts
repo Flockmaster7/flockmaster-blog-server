@@ -3,8 +3,11 @@ import { AddCommentWrapper } from '../types/comment';
 import Result from '../utils/Result';
 import ERROR from '../utils/Error';
 import CommentServiceImpl from '../service/Implement/CommentServiceImpl';
+import CommentDianzanServiceImpl from '../service/Implement/CommentDianzanServiceImpl';
 
 const commentService: CommentServiceImpl = new CommentServiceImpl();
+const commentDianzanService: CommentDianzanServiceImpl =
+	new CommentDianzanServiceImpl();
 
 class CommentController {
 	// 文章评论
@@ -88,6 +91,52 @@ class CommentController {
 			}
 		} catch (error) {
 			ctx.app.emit('error', ERROR.updateCommentError, ctx, error);
+		}
+	}
+
+	async dianzanComment(ctx: Context) {
+		try {
+			const id = Number(ctx.params.id);
+			const userId = ctx.state.user.id;
+			const res = await commentDianzanService.dianzan(id, userId);
+			if (res) {
+				ctx.body = new Result<string>(200, '点赞成功', 'success');
+			} else {
+				throw new Error('点赞失败');
+			}
+		} catch (error) {
+			ctx.app.emit('error', ERROR.dianzanCommentError, ctx, error);
+		}
+	}
+
+	async cancelDianzanComment(ctx: Context) {
+		try {
+			const id = Number(ctx.params.id);
+			const userId = ctx.state.user.id;
+			const res = await commentDianzanService.cancelDianzan(id, userId);
+			if (res) {
+				ctx.body = new Result<string>(200, '取消点赞成功', 'success');
+			} else {
+				throw new Error('取消点赞失败');
+			}
+		} catch (error) {
+			ctx.app.emit('error', ERROR.cancelDianzanCommentError, ctx, error);
+		}
+	}
+
+	async getDianzanList(ctx: Context) {
+		try {
+			const userId = ctx.state.user.id;
+			const res = await commentDianzanService.getUserDianzanIdList(
+				userId
+			);
+			if (res) {
+				ctx.body = new Result<number[]>(200, '获取评论成功', res);
+			} else {
+				throw new Error('获取评论失败');
+			}
+		} catch (error) {
+			ctx.app.emit('error', ERROR.getCommentListError, ctx, error);
 		}
 	}
 }

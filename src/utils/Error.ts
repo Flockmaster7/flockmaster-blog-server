@@ -69,6 +69,8 @@ export default {
 	getCommentListError: errorForm('40002', '获取评论列表失败', ''),
 	removeCommentError: errorForm('40003', '删除评论失败', ''),
 	updateCommentError: errorForm('40004', '修改评论失败', ''),
+	dianzanCommentError: errorForm('40005', '点赞失败', ''),
+	cancelDianzanCommentError: errorForm('40006', '取消点赞失败', ''),
 	addLeaveWordsError: errorForm('50001', '发布留言失败', ''),
 	getLeaveWordsListError: errorForm('50002', '获取留言列表失败', ''),
 	removeLeaveWordsError: errorForm('50003', '删除留言失败', ''),
