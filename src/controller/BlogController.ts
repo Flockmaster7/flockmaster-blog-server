@@ -4,6 +4,7 @@ import ERROR from '../utils/Error';
 import BlogService from '../service/blogService';
 import { uploadFile } from '../utils/Cos';
 import TagServiceImpl from '../service/Implement/TagServiceImpl';
+import Blog from '../model/Blog';
 
 const blogService = new BlogService();
 const tagService = new TagServiceImpl();
@@ -363,6 +364,40 @@ class BlogController {
 			}
 		} catch (error) {
 			ctx.app.emit('error', ERROR.getRecommendBlogListError, ctx, error);
+		}
+	}
+
+	async topBlog(ctx: Context) {
+		try {
+			const id = Number(ctx.params.id);
+			const blog = new Blog();
+			blog.id = id;
+			blog.top = 1;
+			const res = await blogService.updateBlog(blog);
+			if (res) {
+				ctx.body = new Result<string>(200, '置顶成功', 'success');
+			} else {
+				throw new Error('置顶失败');
+			}
+		} catch (error) {
+			ctx.app.emit('error', ERROR.topBlogError, ctx, error);
+		}
+	}
+
+	async cancelTopBlog(ctx: Context) {
+		try {
+			const id = Number(ctx.params.id);
+			const blog = new Blog();
+			blog.id = id;
+			blog.top = 0;
+			const res = await blogService.updateBlog(blog);
+			if (res) {
+				ctx.body = new Result<string>(200, '取消置顶成功', 'success');
+			} else {
+				throw new Error('取消置顶失败');
+			}
+		} catch (error) {
+			ctx.app.emit('error', ERROR.cancelTopBlogError, ctx, error);
 		}
 	}
 }

@@ -36,6 +36,11 @@ class BlogService {
 		return true;
 	}
 
+	async updateBlog(blog: Partial<Blog>) {
+		const res = await Blog.update(blog, { where: { id: blog.id } });
+		return res[0] ? true : false;
+	}
+
 	// 删除博客 TO DO
 	async deleteBlog(id: number) {
 		const blog = await this.getBlogInfo(id);
@@ -64,7 +69,10 @@ class BlogService {
 		let option: any = {
 			offset: offset,
 			limit: pageSize * 1,
-			order: [['createdAt', 'DESC']],
+			order: [
+				['top', 'DESC'],
+				['createdAt', 'DESC']
+			],
 			attributes: [
 				'id',
 				'title',
@@ -76,6 +84,7 @@ class BlogService {
 				'content_text',
 				'content_html',
 				'blog_collect',
+				'top',
 				'createdAt',
 				'updatedAt'
 			],
@@ -101,9 +110,9 @@ class BlogService {
 		}
 
 		// 升序降序，默认降序
-		if (wrapper.order) option.order[0][1] = wrapper.order;
+		if (wrapper.order) option.order[1][1] = wrapper.order;
 		// 按热度排序
-		if (wrapper.orderByRead) option.order[0] = ['blog_read', 'DESC'];
+		if (wrapper.orderByRead) option.order[1] = ['blog_read', 'DESC'];
 
 		const filter: any = [];
 		if (wrapper.user_id)

@@ -93,6 +93,14 @@ export default class Blog extends Model<Blog> {
 	})
 	blog_collect: number;
 
+	@Column({
+		type: DataType.INTEGER,
+		allowNull: true,
+		defaultValue: 0,
+		comment: '是否置顶'
+	})
+	top: number;
+
 	@DeletedAt
 	@Column({
 		type: DataType.DATE,
