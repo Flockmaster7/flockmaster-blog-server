@@ -1,11 +1,11 @@
 import { Context } from 'koa';
 import ERROR from '../utils/Error';
 import Result from '../utils/Result';
-import PhotoService from '../service/photoService';
 import { uploadFile } from '../utils/Cos';
 import Photo from '../model/Photo';
+import PhotoServiceImpl from '../service/Implement/PhotoServiceImpl';
 
-const photoService = new PhotoService();
+const photoService = new PhotoServiceImpl();
 
 class PhotoController {
 	// 添加相册图片

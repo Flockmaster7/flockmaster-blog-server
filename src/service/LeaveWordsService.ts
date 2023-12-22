@@ -1,11 +1,15 @@
 import LeaveWords from '../model/LeaveWords';
+import { PageType } from '../types';
 
 interface LeaveWordsService {
 	// 发布评论
 	createLeaveWords(wrapper: any): Promise<LeaveWords>;
 
 	// 获取留言列表
-	getLeaveWords(pageNum: number, pageSize: number): any;
+	getLeaveWords(
+		pageNum: number,
+		pageSize: number
+	): Promise<PageType<LeaveWords>>;
 
 	// 获取子留言
 	getChildLeaveWords(

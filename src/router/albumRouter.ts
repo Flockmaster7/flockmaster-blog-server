@@ -2,7 +2,7 @@ import Router from 'koa-router';
 import { auth } from '../middleware/auth';
 import { validatorId, validatorPage } from '../middleware/workMiddleware';
 import { verifyUploadImg } from '../middleware/validator';
-import AlbumController from '../controller/albumController';
+import AlbumController from '../controller/AlbumController';
 
 const router = new Router({ prefix: '/api/album' });
 

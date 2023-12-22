@@ -1,11 +1,11 @@
 import { Context } from 'koa';
-import AlbumService from '../service/albumService';
 import ERROR from '../utils/Error';
 import Result from '../utils/Result';
 import { uploadFile } from '../utils/Cos';
 import Album from '../model/Album';
+import AlbumServiceImpl from '../service/Implement/AlbumServiceImpl';
 
-const albumService = new AlbumService();
+const albumService = new AlbumServiceImpl();
 
 class AlbumController {
 	// 添加相册

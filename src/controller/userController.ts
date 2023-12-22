@@ -1,13 +1,13 @@
 import jwt from 'jsonwebtoken';
 import { Context, Next } from 'koa';
-import UserService from '../service/userService';
 import Result from '../utils/Result';
 import ERROR from '../utils/Error';
 import processEnv from '../config/config.default';
 import User from '../model/User';
 import { uploadFile } from '../utils/Cos';
+import UserServiceImpl from '../service/Implement/UserServiceImpl';
 
-const userService = new UserService();
+const userService: UserServiceImpl = new UserServiceImpl();
 
 class UserController {
 	// 登录

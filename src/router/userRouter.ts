@@ -1,5 +1,5 @@
 import Router from 'koa-router';
-import UserController from '../controller/userController';
+import UserController from '../controller/UserController';
 import {
 	loginOrRegisterFormValidator,
 	userVerify,

@@ -1,9 +1,9 @@
 import { Context, Next } from 'koa';
 import bcrpyt from 'bcryptjs';
 import ERROR from '../utils/Error';
-import UserService from '../service/userService';
+import UserServiceImpl from '../service/Implement/UserServiceImpl';
 
-const userService = new UserService();
+const userService: UserServiceImpl = new UserServiceImpl();
 
 // 校验登录或注册时提交的账号密码
 const loginOrRegisterFormValidator = async (ctx: Context, next: Next) => {
