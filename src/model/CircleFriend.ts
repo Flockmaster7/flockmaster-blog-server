@@ -31,6 +31,14 @@ class CircleFriend extends Model<CircleFriend> {
 	})
 	content: string;
 
+	@Column({
+		type: DataType.INTEGER,
+		allowNull: true,
+		defaultValue: 0,
+		comment: '是否置顶'
+	})
+	top: number;
+
 	@DeletedAt
 	@Column({
 		type: DataType.DATE,

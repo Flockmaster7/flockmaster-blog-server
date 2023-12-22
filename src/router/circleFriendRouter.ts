@@ -44,4 +44,18 @@ router.post(
 	circleFriendController.cancelDianzanCircleFriend
 );
 
+router.post(
+	'/top/:id',
+	auth,
+	validatorId,
+	circleFriendController.topCircleFriend
+);
+
+router.post(
+	'/cancelTop/:id',
+	auth,
+	validatorId,
+	circleFriendController.cancelTopCircleFriend
+);
+
 module.exports = router;

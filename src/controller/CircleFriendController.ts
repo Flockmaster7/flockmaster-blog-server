@@ -130,4 +130,42 @@ export default class CircleFriendController {
 			);
 		}
 	}
+
+	async topCircleFriend(ctx: Context) {
+		try {
+			const id = Number(ctx.params.id);
+			const circleFirend = new CircleFriend();
+			circleFirend.id = id;
+			circleFirend.top = 1;
+			const res = await circleFriendService.updateCircleFriend(
+				circleFirend
+			);
+			if (res) {
+				ctx.body = new Result<string>(200, '置顶成功', 'success');
+			} else {
+				throw new Error('置顶失败');
+			}
+		} catch (error) {
+			ctx.app.emit('error', ERROR.topCircleFriendError, ctx, error);
+		}
+	}
+
+	async cancelTopCircleFriend(ctx: Context) {
+		try {
+			const id = Number(ctx.params.id);
+			const circleFirend = new CircleFriend();
+			circleFirend.id = id;
+			circleFirend.top = 0;
+			const res = await circleFriendService.updateCircleFriend(
+				circleFirend
+			);
+			if (res) {
+				ctx.body = new Result<string>(200, '取消置顶成功', 'success');
+			} else {
+				throw new Error('取消置顶失败');
+			}
+		} catch (error) {
+			ctx.app.emit('error', ERROR.cancelTopCircleFriendError, ctx, error);
+		}
+	}
 }

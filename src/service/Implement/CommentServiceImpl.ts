@@ -1,6 +1,7 @@
 import CommentService from '../CommentService';
 import Comment from '../../model/Comment';
 import User from '../../model/User';
+import sequelize from '../../db/mysql';
 
 class CommentServiceImpl implements CommentService {
 	// 发布评论
@@ -26,6 +27,16 @@ class CommentServiceImpl implements CommentService {
 				blog_id: id,
 				parent_id: null
 			},
+			attributes: {
+				include: [
+					[
+						sequelize.literal(
+							'(SELECT COUNT(*) FROM comment_dianzan WHERE comment_dianzan.comment_id = comment.id)'
+						),
+						'dianzanCount'
+					]
+				]
+			},
 			include: [
 				{
 					model: User,
@@ -35,6 +46,16 @@ class CommentServiceImpl implements CommentService {
 				{
 					model: Comment,
 					as: 'children',
+					attributes: {
+						include: [
+							[
+								sequelize.literal(
+									'(SELECT COUNT(*) FROM comment_dianzan WHERE comment_dianzan.comment_id = comment.id)'
+								),
+								'dianzanCount'
+							]
+						]
+					},
 					include: [
 						{
 							model: User,

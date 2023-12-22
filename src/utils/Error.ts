@@ -94,5 +94,7 @@ export default {
 	removeCircleFriendError: errorForm('80003', '删除朋友圈失败', ''),
 	updateCircleFriendError: errorForm('80004', '修改朋友圈失败', ''),
 	dianzanCircleFriendError: errorForm('80005', '点赞失败', ''),
-	cancelDianzanCircleFriendError: errorForm('80006', '取消点赞失败', '')
+	cancelDianzanCircleFriendError: errorForm('80006', '取消点赞失败', ''),
+	topCircleFriendError: errorForm('80007', '置顶失败', ''),
+	cancelTopCircleFriendError: errorForm('80008', '取消置顶失败', '')
 };

@@ -29,9 +29,10 @@ class CircleFriendServiceImpl implements CircleFriendService {
 	async updateCircleFriend(
 		circleFriend: Partial<CircleFriend>
 	): Promise<boolean> {
-		await CircleFriend.update(circleFriend, {
+		const res5 = await CircleFriend.update(circleFriend, {
 			where: { id: circleFriend.id }
 		});
+		if (!res5[0]) return false;
 		let res1 = true,
 			res2 = true,
 			res3 = true,
@@ -134,7 +135,10 @@ class CircleFriendServiceImpl implements CircleFriendService {
 					attributes: ['id', 'video_url']
 				}
 			],
-			order: [['createdAt', 'DESC']],
+			order: [
+				['top', 'DESC'],
+				['createdAt', 'DESC']
+			],
 			offset: (pageNum - 1) * pageSize,
 			limit: pageSize
 		});
