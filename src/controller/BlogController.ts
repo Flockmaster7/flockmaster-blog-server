@@ -400,6 +400,15 @@ class BlogController {
 			ctx.app.emit('error', ERROR.cancelTopBlogError, ctx, error);
 		}
 	}
+
+	async getSubfieldList(ctx: Context) {
+		try {
+			const res = await blogService.getSubfield();
+			ctx.body = new Result(200, '获取分栏成功', res);
+		} catch (error) {
+			ctx.app.emit('error', ERROR.getSubfieldError, ctx, error);
+		}
+	}
 }
 
 export default BlogController;

@@ -67,6 +67,7 @@ export default {
 	getRecommendBlogListError: errorForm('30020', '获取推荐文章失败', ''),
 	topBlogError: errorForm('30021', '置顶失败', ''),
 	cancelTopBlogError: errorForm('30022', '取消置顶失败', ''),
+	getSubfieldError: errorForm('30023', '获取分栏失败', ''),
 	addCommentError: errorForm('40001', '发布评论失败', ''),
 	getCommentListError: errorForm('40002', '获取评论列表失败', ''),
 	removeCommentError: errorForm('40003', '删除评论失败', ''),

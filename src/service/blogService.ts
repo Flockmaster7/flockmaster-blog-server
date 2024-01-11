@@ -594,6 +594,22 @@ class BlogService {
 		const count = await Blog.count();
 		return count;
 	}
+
+	async getSubfield() {
+		const res = await Blog.findAll({
+			where: {
+				classify: {
+					[Op.in]: [0, 1, 2, 3, 4]
+				}
+			},
+			attributes: [
+				'classify',
+				[sequelize.fn('count', sequelize.col('classify')), 'count']
+			],
+			group: ['classify']
+		});
+		return res;
+	}
 }
 
 export default BlogService;

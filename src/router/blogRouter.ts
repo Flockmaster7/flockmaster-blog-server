@@ -172,4 +172,6 @@ router.post('/top/:id', auth, validatorId, blogController.topBlog);
 
 router.post('/cancelTop/:id', auth, validatorId, blogController.cancelTopBlog);
 
+router.get('/subfield/list', blogController.getSubfieldList);
+
 module.exports = router;

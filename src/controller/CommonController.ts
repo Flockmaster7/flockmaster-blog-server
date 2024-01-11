@@ -5,10 +5,42 @@ import { WebsiteType } from '../types';
 import CommonServiceImpl from '../service/Implement/CommonServiceImpl';
 import Comment from '../model/Comment';
 import Blog from '../model/Blog';
+import { uploadFile } from '../utils/Cos';
 
 const commonService: CommonServiceImpl = new CommonServiceImpl();
 
 class CommonController {
+	async upload(ctx: Context) {
+		try {
+			const res: {
+				imageList: string[];
+				videoList: string[];
+			} = {
+				imageList: [],
+				videoList: []
+			};
+			if (ctx.state.imageList.length !== 0) {
+				for (const item of ctx.state.imageList) {
+					await uploadFile(item.filepath, item.newFilename, 'images');
+					res.imageList.push(
+						`https://ggkt-atguigu-1313888024.cos.ap-guangzhou.myqcloud.com/flockmaster-blogs/images/${item.newFilename}`
+					);
+				}
+			}
+			if (ctx.state.videoList.length !== 0) {
+				for (const item of ctx.state.videoList) {
+					await uploadFile(item.filepath, item.newFilename, 'videos');
+					res.videoList.push(
+						`https://ggkt-atguigu-1313888024.cos.ap-guangzhou.myqcloud.com/flockmaster-blogs/videos/${item.newFilename}`
+					);
+				}
+			}
+			ctx.body = new Result(200, '上传成功', res);
+		} catch (error) {
+			ctx.app.emit('error', ERROR.uploadError, ctx, error);
+		}
+	}
+
 	// 增加网站访问量
 	public async addVisit(ctx: Context) {
 		try {
