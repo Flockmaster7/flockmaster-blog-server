@@ -48,11 +48,11 @@ app.use(logger());
 
 app.use(
 	koaBody({
-		multipart: true,
-		formidable: {
-			uploadDir: path.resolve(__dirname, '../static'),
-			keepExtensions: true
-		}
+		multipart: true
+		// formidable: {
+		// 	uploadDir: path.resolve(__dirname, '../static'),
+		// 	keepExtensions: true
+		// }
 	})
 );
 // 可以通过路径访问静态资源
