@@ -23,14 +23,25 @@ export default class CircleFriendController {
 		}
 	}
 
+	async getCircleFriendDetail(ctx: Context) {
+		try {
+			const id = ctx.params.id;
+			const res = await circleFriendService.getDetail(Number(id));
+			ctx.body = new Result(200, '获取朋友圈详情成功', res);
+		} catch (error) {
+			ctx.app.emit('error', ERROR.getCircleFriendDetailError, ctx, error);
+		}
+	}
+
 	async postCircleFriend(ctx: Context) {
 		try {
-			const { content, videos, images } = ctx.request.body;
+			const { content, videos, images, top } = ctx.request.body;
 			const circleFriend = new CircleFriend();
 			circleFriend.user_id = Number(ctx.state.user.id);
 			circleFriend.content = content;
 			circleFriend.videos = videos;
 			circleFriend.images = images;
+			circleFriend.top = top;
 			const res = await circleFriendService.addCircleFriend(circleFriend);
 			if (res) {
 				ctx.body = new Result<string>(200, '发布朋友圈成功', 'success');

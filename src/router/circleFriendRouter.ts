@@ -13,6 +13,13 @@ router.get(
 	circleFriendController.getCircleFriendList
 );
 
+router.get(
+	'/getDetail/:id',
+	auth,
+	validatorId,
+	circleFriendController.getCircleFriendDetail
+);
+
 router.post('/add', auth, circleFriendController.postCircleFriend);
 
 router.post('/update', auth, circleFriendController.updateCircleFriend);

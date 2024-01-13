@@ -112,11 +112,49 @@ class CircleFriendServiceImpl implements CircleFriendService {
 				include: [
 					[
 						sequelize.literal(
-							'(SELECT COUNT(*) FROM circle_friend_dianzan WHERE circle_friend_dianzan.circle_friend_id = id)'
+							'(SELECT COUNT(*) FROM circle_friend_dianzan WHERE circle_friend_dianzan.circle_friend_id = CircleFriend.id)'
 						),
 						'dianzanCount'
 					]
 				]
+			},
+			include: [
+				{
+					model: User,
+					as: 'user',
+					attributes: ['id', 'name', 'user_image']
+				}
+				// {
+				// 	model: CircleFriendImage,
+				// 	as: 'images',
+				// 	attributes: ['id', 'image_url']
+				// },
+				// {
+				// 	model: CircleFriendVideo,
+				// 	as: 'videos',
+				// 	attributes: ['id', 'video_url']
+				// }
+			],
+			order: [
+				['top', 'DESC'],
+				['createdAt', 'DESC']
+			],
+			offset: (pageNum - 1) * pageSize,
+			limit: pageSize
+		});
+		return {
+			pageNum,
+			pageSize,
+			total: rows.length,
+			rows
+		};
+	}
+
+	async getDetail(id: number) {
+		const res = await CircleFriend.findOne({
+			where: { id },
+			attributes: {
+				exclude: ['isDeleted']
 			},
 			include: [
 				{
@@ -134,20 +172,9 @@ class CircleFriendServiceImpl implements CircleFriendService {
 					as: 'videos',
 					attributes: ['id', 'video_url']
 				}
-			],
-			order: [
-				['top', 'DESC'],
-				['createdAt', 'DESC']
-			],
-			offset: (pageNum - 1) * pageSize,
-			limit: pageSize
+			]
 		});
-		return {
-			pageNum,
-			pageSize,
-			total: rows.length,
-			rows
-		};
+		return res;
 	}
 }
 

@@ -19,3 +19,8 @@ export interface WebsiteType {
 	website_works: string | number;
 	website_leaveWords: string | number;
 }
+
+export interface Upload {
+	images: { imageUrl: string }[];
+	videos: { videoUrl: string }[];
+}

@@ -8,6 +8,8 @@ interface CircleFriendService {
 		wrapper?: Partial<CircleFriend>
 	): Promise<PageType<CircleFriend>>;
 
+	getDetail(id: number): Promise<CircleFriend | null>;
+
 	addCircleFriend(circleFriend: CircleFriend): Promise<boolean>;
 
 	updateCircleFriend(circleFriend: Partial<CircleFriend>): Promise<boolean>;

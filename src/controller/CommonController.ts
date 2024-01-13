@@ -1,7 +1,7 @@
 import { Context } from 'koa';
 import Result from '../utils/Result';
 import ERROR from '../utils/Error';
-import { WebsiteType } from '../types';
+import { Upload, WebsiteType } from '../types';
 import CommonServiceImpl from '../service/Implement/CommonServiceImpl';
 import Comment from '../model/Comment';
 import Blog from '../model/Blog';
@@ -12,27 +12,24 @@ const commonService: CommonServiceImpl = new CommonServiceImpl();
 class CommonController {
 	async upload(ctx: Context) {
 		try {
-			const res: {
-				imageList: string[];
-				videoList: string[];
-			} = {
-				imageList: [],
-				videoList: []
+			const res: Upload = {
+				images: [],
+				videos: []
 			};
 			if (ctx.state.imageList.length !== 0) {
 				for (const item of ctx.state.imageList) {
 					await uploadFile(item.filepath, item.newFilename, 'images');
-					res.imageList.push(
-						`https://ggkt-atguigu-1313888024.cos.ap-guangzhou.myqcloud.com/flockmaster-blogs/images/${item.newFilename}`
-					);
+					res.images.push({
+						imageUrl: `https://ggkt-atguigu-1313888024.cos.ap-guangzhou.myqcloud.com/flockmaster-blogs/images/${item.newFilename}`
+					});
 				}
 			}
 			if (ctx.state.videoList.length !== 0) {
 				for (const item of ctx.state.videoList) {
 					await uploadFile(item.filepath, item.newFilename, 'videos');
-					res.videoList.push(
-						`https://ggkt-atguigu-1313888024.cos.ap-guangzhou.myqcloud.com/flockmaster-blogs/videos/${item.newFilename}`
-					);
+					res.videos.push({
+						videoUrl: `https://ggkt-atguigu-1313888024.cos.ap-guangzhou.myqcloud.com/flockmaster-blogs/videos/${item.newFilename}`
+					});
 				}
 			}
 			ctx.body = new Result(200, '上传成功', res);

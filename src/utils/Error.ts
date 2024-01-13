@@ -93,6 +93,7 @@ export default {
 	getLatestCommentError: errorForm('70003', '获取首页最新评论成功', ''),
 	getgetHotBlogsError: errorForm('70004', '获取首页热门文章成功', ''),
 	getCircleFriendListError: errorForm('80001', '获取朋友圈失败', ''),
+	getCircleFriendDetailError: errorForm('80006', '获取朋友圈详情失败', ''),
 	postCircleFriendError: errorForm('80002', '发布朋友圈失败', ''),
 	removeCircleFriendError: errorForm('80003', '删除朋友圈失败', ''),
 	updateCircleFriendError: errorForm('80004', '修改朋友圈失败', ''),

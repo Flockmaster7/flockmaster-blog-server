@@ -22,7 +22,7 @@ class CircleFriendImage extends Model<CircleFriendImage> {
 	circleFriendId: number;
 
 	@Column({
-		type: DataType.CHAR(64),
+		type: DataType.STRING,
 		allowNull: true,
 		comment: '图片url',
 		field: 'image_url'
