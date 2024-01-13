@@ -123,17 +123,17 @@ class CircleFriendServiceImpl implements CircleFriendService {
 					model: User,
 					as: 'user',
 					attributes: ['id', 'name', 'user_image']
+				},
+				{
+					model: CircleFriendImage,
+					as: 'images',
+					attributes: ['id', 'image_url']
+				},
+				{
+					model: CircleFriendVideo,
+					as: 'videos',
+					attributes: ['id', 'video_url']
 				}
-				// {
-				// 	model: CircleFriendImage,
-				// 	as: 'images',
-				// 	attributes: ['id', 'image_url']
-				// },
-				// {
-				// 	model: CircleFriendVideo,
-				// 	as: 'videos',
-				// 	attributes: ['id', 'video_url']
-				// }
 			],
 			order: [
 				['top', 'DESC'],

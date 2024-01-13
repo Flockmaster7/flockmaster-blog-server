@@ -52,6 +52,7 @@ export const verifyUploadImg = async (ctx: Context, next: Next) => {
 	await next();
 };
 
+// 校验文件
 export const verifyUpload = async (ctx: Context, next: Next) => {
 	try {
 		const { file } = ctx.request.files!;
@@ -73,7 +74,7 @@ export const verifyUpload = async (ctx: Context, next: Next) => {
 				ctx.state.videoList.push(file);
 			}
 		} else {
-			file.every((item) => {
+			for (const item of file) {
 				if (
 					item.mimetype &&
 					!imgTypes.includes(item.mimetype) &&
@@ -89,7 +90,8 @@ export const verifyUpload = async (ctx: Context, next: Next) => {
 				) {
 					ctx.state.videoList.push(item);
 				}
-			});
+			}
+
 			// return ctx.app.emit('error', ERROR.uploadError, ctx);
 		}
 	} catch (error) {
