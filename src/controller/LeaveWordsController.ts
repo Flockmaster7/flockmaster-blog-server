@@ -82,7 +82,7 @@ class LeaveWordsController {
 			const leaveWords = ctx.request.body;
 			const res = await leaveWordsService.modifyLeaveWords(
 				leaveWords,
-				id
+				Number(id)
 			);
 			if (res) {
 				ctx.body = new Result(200, '修改留言成功', 'success');

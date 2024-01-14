@@ -154,7 +154,15 @@ class CircleFriendServiceImpl implements CircleFriendService {
 		const res = await CircleFriend.findOne({
 			where: { id },
 			attributes: {
-				exclude: ['isDeleted']
+				exclude: ['isDeleted'],
+				include: [
+					[
+						sequelize.literal(
+							'(SELECT COUNT(*) FROM circle_friend_dianzan WHERE circle_friend_dianzan.circle_friend_id = CircleFriend.id)'
+						),
+						'dianzanCount'
+					]
+				]
 			},
 			include: [
 				{

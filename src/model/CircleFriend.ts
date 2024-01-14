@@ -25,7 +25,7 @@ class CircleFriend extends Model<CircleFriend> {
 	user_id: number;
 
 	@Column({
-		type: DataType.CHAR(64),
+		type: DataType.TEXT,
 		allowNull: true,
 		comment: '文字'
 	})
