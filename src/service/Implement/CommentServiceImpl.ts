@@ -31,7 +31,7 @@ class CommentServiceImpl implements CommentService {
 				include: [
 					[
 						sequelize.literal(
-							'(SELECT COUNT(*) FROM comment_dianzan WHERE comment_dianzan.comment_id = comment.id)'
+							'(SELECT COUNT(*) FROM comment_dianzan WHERE comment_dianzan.comment_id = Comment.id)'
 						),
 						'dianzanCount'
 					]
@@ -50,7 +50,7 @@ class CommentServiceImpl implements CommentService {
 						include: [
 							[
 								sequelize.literal(
-									'(SELECT COUNT(*) FROM comment_dianzan WHERE comment_dianzan.comment_id = comment.id)'
+									'(SELECT COUNT(*) FROM comment_dianzan WHERE comment_dianzan.comment_id = Comment.id)'
 								),
 								'dianzanCount'
 							]
