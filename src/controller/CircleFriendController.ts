@@ -4,9 +4,12 @@ import Result from '../utils/Result';
 import ERROR from '../utils/Error';
 import CircleFriend from '../model/CircleFriend';
 import CircleFriendDianzanServiceImpl from '../service/Implement/CircleFriendDianzanServiceImpl';
+import CircleFriendComment from '../model/CircleFriendComment';
+import CircleFriendCommentServiceImpl from '../service/Implement/CircleFriendCommentServiceImpl';
 
 const circleFriendService = new CircleFriendServiceImpl();
 const circleFriendDianzanService = new CircleFriendDianzanServiceImpl();
+const circleFriendCommentService = new CircleFriendCommentServiceImpl();
 
 export default class CircleFriendController {
 	async getCircleFriendList(ctx: Context) {
@@ -177,6 +180,84 @@ export default class CircleFriendController {
 			}
 		} catch (error) {
 			ctx.app.emit('error', ERROR.cancelTopCircleFriendError, ctx, error);
+		}
+	}
+
+	async postComment(ctx: Context) {
+		try {
+			const { replyTo, content, circleFriendId, userId } =
+				ctx.request.body;
+			const comment = new CircleFriendComment();
+			if (!(content && circleFriendId && userId)) {
+				throw new Error('参数错误');
+			}
+			replyTo && (comment.replyTo = replyTo);
+			comment.userId = userId;
+			comment.content = content;
+			comment.circleFriendId = circleFriendId;
+			const res = await circleFriendCommentService.addCircleFriendComment(
+				comment
+			);
+			if (res) {
+				ctx.body = new Result<string>(200, '评论成功', 'success');
+			} else {
+				throw new Error('评论失败');
+			}
+		} catch (error) {
+			ctx.app.emit(
+				'error',
+				ERROR.addCircleFriendCommentError,
+				ctx,
+				error
+			);
+		}
+	}
+
+	async updateComment(ctx: Context) {
+		try {
+			const { id, content } = ctx.request.body;
+			if (!(id && content)) {
+				throw new Error('参数错误');
+			}
+			const comment = new CircleFriendComment();
+			comment.id = id;
+			comment.content = content;
+			const res =
+				await circleFriendCommentService.updateCircleFriendComment(
+					comment
+				);
+			if (res) {
+				ctx.body = new Result<string>(200, '修改评论成功', 'success');
+			} else {
+				throw new Error('修改评论失败');
+			}
+		} catch (error) {
+			ctx.app.emit(
+				'error',
+				ERROR.updateCircleFriendCommentError,
+				ctx,
+				error
+			);
+		}
+	}
+
+	async removeComment(ctx: Context) {
+		try {
+			const id = Number(ctx.params.id);
+			const res =
+				await circleFriendCommentService.removeCircleFriendComment(id);
+			if (res) {
+				ctx.body = new Result<string>(200, '删除评论成功', 'success');
+			} else {
+				throw new Error('删除评论失败');
+			}
+		} catch (error) {
+			ctx.app.emit(
+				'error',
+				ERROR.removeCircleFriendCommentError,
+				ctx,
+				error
+			);
 		}
 	}
 }

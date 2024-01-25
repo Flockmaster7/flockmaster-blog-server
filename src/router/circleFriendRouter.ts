@@ -65,4 +65,14 @@ router.post(
 	circleFriendController.cancelTopCircleFriend
 );
 
+router.post('/comment/add', auth, circleFriendController.postComment);
+
+router.post('/comment/update', auth, circleFriendController.updateComment);
+
+router.delete(
+	'/comment/remove/:id',
+	auth,
+	circleFriendController.removeComment
+);
+
 module.exports = router;

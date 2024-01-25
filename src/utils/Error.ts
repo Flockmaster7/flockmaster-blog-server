@@ -100,5 +100,12 @@ export default {
 	dianzanCircleFriendError: errorForm('80005', '点赞失败', ''),
 	cancelDianzanCircleFriendError: errorForm('80006', '取消点赞失败', ''),
 	topCircleFriendError: errorForm('80007', '置顶失败', ''),
-	cancelTopCircleFriendError: errorForm('80008', '取消置顶失败', '')
+	cancelTopCircleFriendError: errorForm('80008', '取消置顶失败', ''),
+	addCircleFriendCommentError: errorForm('80009', '添加朋友圈评论失败', ''),
+	removeCircleFriendCommentError: errorForm(
+		'80011',
+		'删除朋友圈评论失败',
+		''
+	),
+	updateCircleFriendCommentError: errorForm('80012', '修改朋友圈评论失败', '')
 };

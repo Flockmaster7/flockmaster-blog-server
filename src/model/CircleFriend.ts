@@ -13,6 +13,7 @@ import User from './User';
 import CIrcleFriendLDianzan from './CircleFriendDianzan';
 import CircleFriendImage from './CircleFriendImage';
 import CircleFriendVideo from './CircleFriendVideo';
+import CircleFriendComment from './CircleFriendComment';
 
 @Table({ tableName: 'circle_friend' })
 class CircleFriend extends Model<CircleFriend> {
@@ -57,6 +58,9 @@ class CircleFriend extends Model<CircleFriend> {
 
 	@HasMany(() => CircleFriendVideo)
 	videos: CircleFriendVideo[];
+
+	@HasMany(() => CircleFriendComment)
+	comments: CircleFriendComment[];
 }
 
 export default CircleFriend;
