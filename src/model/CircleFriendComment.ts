@@ -54,10 +54,10 @@ export default class CircleFriendComment extends Model<CircleFriendComment> {
 	isDeleted: Date | null;
 
 	// 回复的目标评论
-	@BelongsTo(() => CircleFriendComment, { foreignKey: 'replyTo' })
+	@BelongsTo(() => CircleFriendComment)
 	targetComment: CircleFriendComment;
 
-	@BelongsTo(() => User, { foreignKey: 'userId' })
+	@BelongsTo(() => User)
 	user: User;
 
 	@BelongsTo(() => CircleFriend)

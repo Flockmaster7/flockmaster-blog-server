@@ -1,5 +1,6 @@
 import sequelize from '../../db/mysql';
 import CircleFriend from '../../model/CircleFriend';
+import CircleFriendComment from '../../model/CircleFriendComment';
 import CircleFriendImage from '../../model/CircleFriendImage';
 import CircleFriendVideo from '../../model/CircleFriendVideo';
 import User from '../../model/User';
@@ -133,6 +134,30 @@ class CircleFriendServiceImpl implements CircleFriendService {
 					model: CircleFriendVideo,
 					as: 'videos',
 					attributes: ['id', 'video_url']
+				},
+				{
+					model: CircleFriendComment,
+					as: 'comments',
+					attributes: ['id', 'content', 'user_id', 'reply_to'],
+					include: [
+						{
+							model: User,
+							as: 'user',
+							attributes: ['id', 'name', 'user_image']
+						},
+						{
+							model: CircleFriendComment,
+							as: 'targetComment',
+							attributes: ['id', 'user_id'],
+							include: [
+								{
+									model: User,
+									as: 'user',
+									attributes: ['id', 'name', 'user_image']
+								}
+							]
+						}
+					]
 				}
 			],
 			order: [
