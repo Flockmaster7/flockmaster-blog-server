@@ -116,6 +116,12 @@ class CircleFriendServiceImpl implements CircleFriendService {
 							'(SELECT COUNT(*) FROM circle_friend_dianzan WHERE circle_friend_dianzan.circle_friend_id = CircleFriend.id)'
 						),
 						'dianzanCount'
+					],
+					[
+						sequelize.literal(
+							'(SELECT COUNT(*) FROM circle_friend_comment WHERE circle_friend_comment.isDeleted IS NULL AND circle_friend_comment.circle_friend_id = CircleFriend.id)'
+						),
+						'commentCount'
 					]
 				]
 			},
@@ -138,7 +144,14 @@ class CircleFriendServiceImpl implements CircleFriendService {
 				{
 					model: CircleFriendComment,
 					as: 'comments',
-					attributes: ['id', 'content', 'user_id', 'reply_to'],
+					attributes: [
+						'id',
+						'content',
+						'user_id',
+						'reply_to',
+						'circle_friend_id',
+						'createdAt'
+					],
 					include: [
 						{
 							model: User,

@@ -260,4 +260,31 @@ export default class CircleFriendController {
 			);
 		}
 	}
+
+	async getCommentListByCircleFriendId(ctx: Context) {
+		try {
+			const { pageNum, pageSize, circleFriendId } = ctx.request.body;
+			if (!(pageNum && pageSize && circleFriendId)) {
+				throw new Error('参数错误');
+			}
+			const res =
+				await circleFriendCommentService.getCircleFriendCommentList(
+					Number(pageNum),
+					Number(pageSize),
+					{ circleFriendId: Number(circleFriendId) }
+				);
+			if (res) {
+				ctx.body = new Result(200, '获取评论成功', res);
+			} else {
+				throw new Error('获取评论失败');
+			}
+		} catch (error) {
+			ctx.app.emit(
+				'error',
+				ERROR.getCommentListByCircleFriendIdError,
+				ctx,
+				error
+			);
+		}
+	}
 }

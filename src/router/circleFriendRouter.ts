@@ -75,4 +75,9 @@ router.delete(
 	circleFriendController.removeComment
 );
 
+router.post(
+	'/comment/getListByCirFriId',
+	circleFriendController.getCommentListByCircleFriendId
+);
+
 module.exports = router;

@@ -107,5 +107,14 @@ export default {
 		'删除朋友圈评论失败',
 		''
 	),
-	updateCircleFriendCommentError: errorForm('80012', '修改朋友圈评论失败', '')
+	updateCircleFriendCommentError: errorForm(
+		'80012',
+		'修改朋友圈评论失败',
+		''
+	),
+	getCommentListByCircleFriendIdError: errorForm(
+		'80013',
+		'获取朋友圈评论列表失败',
+		''
+	)
 };
