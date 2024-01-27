@@ -3,6 +3,7 @@ import ERROR from '../utils/Error';
 import MarkdownIt from 'markdown-it';
 import fs from 'fs';
 import path from 'path';
+import { markdownToTxt } from 'markdown-to-txt';
 
 const md = new MarkdownIt();
 
@@ -52,7 +53,7 @@ export const markdownRender = async (ctx: Context, next: Next) => {
 			path.resolve(__dirname, '../static/' + blog.newFilename),
 			'utf-8'
 		);
-		const blogHtml = md.render(content.toString());
+		const blogHtml = markdownToTxt(content).slice(0, 50);
 		ctx.state.dataBlog = {
 			content,
 			blogHtml

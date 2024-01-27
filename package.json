@@ -34,6 +34,8 @@
     "koa-static": "^5.0.0",
     "koa2-cors": "^2.0.6",
     "koa2-swagger-ui": "^5.8.0",
+    "markdown-it": "^13.0.1",
+    "markdown-to-txt": "^2.0.1",
     "module-alias": "^2.2.2",
     "moment": "^2.29.4",
     "mysql2": "^3.3.3",
@@ -42,16 +44,15 @@
     "reflect-metadata": "^0.1.13",
     "sequelize": "^6.31.1",
     "sequelize-typescript": "^2.1.5",
-    "uid": "^2.0.2",
-    "markdown-it": "^13.0.1"
+    "uid": "^2.0.2"
   },
   "devDependencies": {
-    "@types/markdown-it": "^12.2.3",
     "@types/bcryptjs": "^2.4.2",
     "@types/jsonwebtoken": "^9.0.2",
     "@types/koa": "^2.13.6",
     "@types/koa-router": "^7.4.4",
     "@types/koa2-cors": "^2.0.2",
+    "@types/markdown-it": "^12.2.3",
     "@types/node": "^20.2.5",
     "@types/node-schedule": "^2.1.0",
     "@types/validator": "^13.7.17",

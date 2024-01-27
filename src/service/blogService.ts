@@ -81,7 +81,6 @@ class BlogService {
 				'blog_image',
 				'blog_read',
 				'blog_like',
-				'content_text',
 				'content_html',
 				'blog_collect',
 				'top',
