@@ -68,6 +68,15 @@ export default {
 	topBlogError: errorForm('30021', '置顶失败', ''),
 	cancelTopBlogError: errorForm('30022', '取消置顶失败', ''),
 	getSubfieldError: errorForm('30023', '获取分栏失败', ''),
+	addSubfieldError: errorForm('30024', '添加分栏失败', ''),
+	updateSubfieldError: errorForm('30025', '修改分栏失败', ''),
+	removeSubfieldError: errorForm('30026', '删除分栏失败', ''),
+	getSubfieldDetailError: errorForm('30027', '获取分栏详情失败', ''),
+	getBlogListBySubfieldError: errorForm(
+		'30028',
+		'获取分栏下的文章列表失败',
+		''
+	),
 	addCommentError: errorForm('40001', '发布评论失败', ''),
 	getCommentListError: errorForm('40002', '获取评论列表失败', ''),
 	removeCommentError: errorForm('40003', '删除评论失败', ''),
@@ -116,5 +125,6 @@ export default {
 		'80013',
 		'获取朋友圈评论列表失败',
 		''
-	)
+	),
+	validatorParamsError: errorForm('11111', '参数错误', '')
 };

@@ -5,7 +5,7 @@ export interface BlogObject {
 		id?: number;
 		author?: string;
 		title?: string;
-		classify?: string;
+		classify?: number;
 		content_html?: string;
 		content_text?: string;
 		blog_image?: string;
@@ -14,7 +14,7 @@ export interface BlogObject {
 	id?: number;
 	author?: string;
 	title?: string;
-	classify?: string;
+	classify?: number;
 	content_html?: string;
 	content_text?: string;
 	blog_image?: string;

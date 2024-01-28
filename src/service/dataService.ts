@@ -44,23 +44,23 @@ class CommonService {
 	async getBlogClassifiy(): Promise<any> {
 		const data = [
 			{
-				classify: '1',
+				classify: 1,
 				articleCount: 0
 			},
 			{
-				classify: '2',
+				classify: 2,
 				articleCount: 0
 			},
 			{
-				classify: '3',
+				classify: 3,
 				articleCount: 0
 			},
 			{
-				classify: '4',
+				classify: 4,
 				articleCount: 0
 			},
 			{
-				classify: '5',
+				classify: 5,
 				articleCount: 0
 			}
 		];

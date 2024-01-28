@@ -609,6 +609,45 @@ class BlogService {
 		});
 		return res;
 	}
+
+	async getListBySubfield(id: number, pageNum: number, pageSize: number) {
+		const offset = (pageNum - 1) * pageSize;
+		const { count, rows } = await Blog.findAndCountAll({
+			offset: offset,
+			limit: pageSize * 1,
+			where: {
+				classify: id
+			},
+			attributes: [
+				'id',
+				'title',
+				'author',
+				'classify',
+				'blog_image',
+				'blog_read',
+				'blog_like',
+				'content_html',
+				'blog_collect',
+				'top',
+				'createdAt',
+				'updatedAt'
+			],
+			include: [
+				{
+					model: Tag,
+					as: 'tags',
+					attributes: ['id', 'tag_name', 'tag_classify']
+				}
+			]
+		});
+
+		return {
+			pageNum,
+			pageSize,
+			total: count,
+			rows
+		};
+	}
 }
 
 export default BlogService;

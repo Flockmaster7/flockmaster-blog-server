@@ -16,6 +16,7 @@ import User from './User';
 import User_Blog_Like from './User_Blog_Like';
 import User_Blog_Collect from './User_Blog_Collect';
 import Comment from './Comment';
+import Subfield from './Subfield';
 
 @Table({ tableName: 'blog' })
 export default class Blog extends Model<Blog> {
@@ -41,12 +42,13 @@ export default class Blog extends Model<Blog> {
 	})
 	author: string;
 
+	@ForeignKey(() => Subfield)
 	@Column({
-		type: DataType.STRING,
+		type: DataType.INTEGER,
 		allowNull: true,
-		comment: '文章分类(1: 前端，2：后端)'
+		comment: '文章分栏'
 	})
-	classify: string;
+	classify: number;
 
 	@Column({
 		type: DataType.TEXT,
@@ -115,6 +117,9 @@ export default class Blog extends Model<Blog> {
 
 	@BelongsTo(() => User)
 	user: User;
+
+	@BelongsTo(() => Subfield)
+	subfield: Subfield;
 
 	@BelongsToMany(() => Tag, () => Blog_Tag)
 	tags: Tag[];

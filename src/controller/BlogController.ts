@@ -5,9 +5,12 @@ import BlogService from '../service/blogService';
 import { uploadFile } from '../utils/Cos';
 import TagServiceImpl from '../service/Implement/TagServiceImpl';
 import Blog from '../model/Blog';
+import Subfield from '../model/Subfield';
+import SubfieldServiceImpl from '../service/Implement/SubfieldServiceImpl';
 
 const blogService = new BlogService();
 const tagService = new TagServiceImpl();
+const subfieldService = new SubfieldServiceImpl();
 
 class BlogController {
 	// 上传图片
@@ -403,10 +406,94 @@ class BlogController {
 
 	async getSubfieldList(ctx: Context) {
 		try {
-			const res = await blogService.getSubfield();
+			const res = await subfieldService.getList(1, 999);
 			ctx.body = new Result(200, '获取分栏成功', res);
 		} catch (error) {
 			ctx.app.emit('error', ERROR.getSubfieldError, ctx, error);
+		}
+	}
+
+	async getSubfieldDetail(ctx: Context) {
+		try {
+			const id = ctx.params.id;
+			const res = await subfieldService.getDetail(Number(id));
+			ctx.body = new Result(200, '获取分栏详情成功', res);
+		} catch (error) {
+			ctx.app.emit('error', ERROR.getSubfieldDetailError, ctx, error);
+		}
+	}
+
+	async getBlogListBySubfield(ctx: Context) {
+		try {
+			const { id } = ctx.params;
+			const { pageNum, pageSize } = ctx.request.body;
+			if (!(pageNum && pageSize)) {
+				ctx.app.emit('error', ERROR.validatorParamsError, ctx);
+				return;
+			}
+			const res = await blogService.getListBySubfield(
+				Number(id),
+				Number(pageNum),
+				Number(pageSize)
+			);
+			ctx.body = new Result(200, '获取分栏对应文章成功', res);
+		} catch (error) {
+			ctx.app.emit('error', ERROR.getBlogListBySubfieldError, ctx, error);
+		}
+	}
+
+	async addSubfield(ctx: Context) {
+		try {
+			const { name, description } = ctx.request.body;
+			const subfield = new Subfield();
+			if (!name) {
+				throw new Error('参数错误');
+			}
+			subfield.name = name;
+			description && (subfield.description = description);
+			const res = await subfieldService.addSubfield(subfield);
+			if (res) {
+				ctx.body = new Result<string>(200, '添加分栏成功', 'success');
+			} else {
+				throw new Error('添加分栏失败');
+			}
+		} catch (error) {
+			ctx.app.emit('error', ERROR.addSubfieldError, ctx, error);
+		}
+	}
+
+	async updateSubfield(ctx: Context) {
+		try {
+			const { id, name, description } = ctx.request.body;
+			if (!id) {
+				throw new Error('参数错误');
+			}
+			const subfield = new Subfield();
+			subfield.id = id;
+			name && (subfield.name = name);
+			description && (subfield.description = description);
+			const res = await subfieldService.updateSubfield(subfield);
+			if (res) {
+				ctx.body = new Result<string>(200, '修改分栏成功', 'success');
+			} else {
+				throw new Error('修改分栏失败');
+			}
+		} catch (error) {
+			ctx.app.emit('error', ERROR.updateSubfieldError, ctx, error);
+		}
+	}
+
+	async removeSubfield(ctx: Context) {
+		try {
+			const id = Number(ctx.params.id);
+			const res = await subfieldService.removeSubfield(id);
+			if (res) {
+				ctx.body = new Result<string>(200, '删除分栏成功', 'success');
+			} else {
+				throw new Error('删除分栏失败');
+			}
+		} catch (error) {
+			ctx.app.emit('error', ERROR.removeSubfieldError, ctx, error);
 		}
 	}
 }

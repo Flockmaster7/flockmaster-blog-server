@@ -174,4 +174,28 @@ router.post('/cancelTop/:id', auth, validatorId, blogController.cancelTopBlog);
 
 router.get('/subfield/list', blogController.getSubfieldList);
 
+router.get(
+	'/subfield/detail/:id',
+	auth,
+	validatorId,
+	blogController.getSubfieldDetail
+);
+
+router.post(
+	'/subfield/blogList/:id?',
+	validatorId,
+	blogController.getBlogListBySubfield
+);
+
+router.post('/subfield/add', auth, blogController.addSubfield);
+
+router.post('/subfield/update', auth, blogController.updateSubfield);
+
+router.delete(
+	'/subfield/remove/:id',
+	auth,
+	validatorId,
+	blogController.removeSubfield
+);
+
 module.exports = router;
