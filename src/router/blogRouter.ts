@@ -198,4 +198,6 @@ router.delete(
 	blogController.removeSubfield
 );
 
+router.post('/search', blogController.searchBlog);
+
 module.exports = router;

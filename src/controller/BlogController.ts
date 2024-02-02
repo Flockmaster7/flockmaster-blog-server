@@ -496,6 +496,27 @@ class BlogController {
 			ctx.app.emit('error', ERROR.removeSubfieldError, ctx, error);
 		}
 	}
+
+	async searchBlog(ctx: Context) {
+		try {
+			const { querySearch } = ctx.request.body;
+			if (querySearch === '') {
+				ctx.body = new Result(200, '搜索成功', []);
+				return;
+			}
+			if (!querySearch) {
+				ctx.app.emit('error', ERROR.validatorParamsError, ctx);
+				return;
+			}
+			const res = await blogService.search(querySearch);
+			if (res) ctx.body = new Result(200, '搜索成功', res);
+			else {
+				throw new Error('搜索失败');
+			}
+		} catch (error) {
+			ctx.app.emit('error', ERROR.getBlogListError, ctx, error);
+		}
+	}
 }
 
 export default BlogController;

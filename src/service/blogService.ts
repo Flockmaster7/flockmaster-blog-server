@@ -648,6 +648,26 @@ class BlogService {
 			rows
 		};
 	}
+
+	async search(query: string) {
+		const res = await Blog.findAll({
+			attributes: ['id', 'title'],
+			where: {
+				[Op.or]: {
+					title: {
+						[Op.like]: `%${query}%`
+					},
+					author: {
+						[Op.like]: `%${query}%`
+					},
+					content_text: {
+						[Op.like]: `%${query}%`
+					}
+				}
+			}
+		});
+		return res;
+	}
 }
 
 export default BlogService;

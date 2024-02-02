@@ -1,8 +1,7 @@
-import Blog from '../../model/Blog';
 import Subfield from '../../model/Subfield';
-import User from '../../model/User';
 import { PageType } from '../../types';
 import SubfieldService from '../SubfieldService';
+import sequelize from '../../db/mysql';
 
 export default class SubfieldServiceImpl implements SubfieldService {
 	async getList(
@@ -12,7 +11,17 @@ export default class SubfieldServiceImpl implements SubfieldService {
 	): Promise<PageType<Subfield>> {
 		const { rows } = await Subfield.findAndCountAll({
 			where: wrapper,
-			attributes: ['id', 'name', 'createdAt'],
+			attributes: [
+				'id',
+				'name',
+				[
+					sequelize.literal(
+						'(SELECT COUNT(*) FROM blog WHERE blog.classify = Subfield.id)'
+					),
+					'blogCount'
+				],
+				'createdAt'
+			],
 			offset: (pageNum - 1) * pageSize,
 			limit: pageSize
 		});
