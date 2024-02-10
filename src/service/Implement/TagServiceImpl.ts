@@ -38,7 +38,8 @@ class TagServiceImpl implements TagService {
 				'tag_classify',
 				'createdAt',
 				'updatedAt'
-			]
+			],
+			order: [['createdAt', 'DESC']]
 		});
 		return {
 			pageNum,

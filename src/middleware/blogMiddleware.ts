@@ -30,7 +30,7 @@ export const verifyUploadImg = async (ctx: Context, next: Next) => {
 export const verifyUpload = async (ctx: Context, next: Next) => {
 	try {
 		const { file } = ctx.request.files!;
-		const fileTypes = ['text/markdown'];
+		const fileTypes = ['text/markdown', 'application/octet-stream'];
 		if (!Array.isArray(file)) {
 			if (!fileTypes.includes(file.mimetype!)) {
 				return ctx.app.emit('error', ERROR.uploadError, ctx);

@@ -11,7 +11,7 @@ router.post('/tag/create', auth, tagController.createTag);
 
 router.post('/tag/update', auth, validatorId, tagController.updateTag);
 
-router.delete('/tag/delete', auth, validatorId, tagController.removeTag);
+router.delete('/tag/delete/:id', auth, validatorId, tagController.removeTag);
 
 router.get(
 	'/tag/getCurrentTagList/:id',

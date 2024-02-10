@@ -176,7 +176,6 @@ router.get('/subfield/list', blogController.getSubfieldList);
 
 router.get(
 	'/subfield/detail/:id',
-	auth,
 	validatorId,
 	blogController.getSubfieldDetail
 );
