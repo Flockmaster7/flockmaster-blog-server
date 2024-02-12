@@ -37,11 +37,4 @@ export default class Blog_Tag extends Model<Blog_Tag> {
 		comment: '标签id'
 	})
 	tag_id: number;
-
-	@DeletedAt
-	@Column({
-		type: DataType.DATE,
-		comment: '删除时间'
-	})
-	isDeleted: Date | null;
 }

@@ -37,8 +37,14 @@ class BlogService {
 	}
 
 	async updateBlog(blog: Partial<Blog>) {
-		const res = await Blog.update(blog, { where: { id: blog.id } });
-		return res[0] ? true : false;
+		let res = true;
+		await Blog.update(blog, { where: { id: blog.id } });
+		if (blog.tags) {
+			const blog1 = await Blog.findOne({ where: { id: blog.id } });
+			res = await blogTagService.deleteBlogTagByBlogId(blog.id);
+			blog1?.$add('tags', blog.tags as any);
+		}
+		return res ? true : false;
 	}
 
 	// 删除博客 TO DO

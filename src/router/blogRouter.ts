@@ -29,6 +29,8 @@ router.post('/uploadImg', auth, verifyUploadImg, blogController.uploadBlogImg);
 // 添加文章
 router.post('/create', auth, validatorBlogForm, blogController.createBlog);
 
+router.post('/update', auth, blogController.updateBlog);
+
 // 获取文章详情
 router.get('/getdetail/:id', validatorId, blogController.getBlogDetail);
 

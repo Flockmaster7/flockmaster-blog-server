@@ -31,6 +31,7 @@ export default {
 	markdownRenderError: errorForm('10001', 'md文件解析失败', ''),
 	FormValidatorError: errorForm('11111', '参数错误', ''),
 	createBlogError: errorForm('10001', '发布博客失败', ''),
+	updateBlogError: errorForm('10001', '修改博客失败', ''),
 	getBlogDetailError: errorForm('10001', '获取文章详情失败', ''),
 	getBlogListError: errorForm('10001', '获取文章列表失败', ''),
 	createWorkError: errorForm('10001', '添加作品失败', ''),

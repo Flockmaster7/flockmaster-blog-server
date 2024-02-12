@@ -12,7 +12,7 @@ const workController = new WorkController();
 router.post('/create', auth, workController.createWork);
 
 // 更新作品
-router.post('/update', auth, validatorId, workController.updateWork);
+router.post('/update', auth, workController.updateWork);
 
 // 获取作品详情
 router.get('/getDetail/:id?', validatorId, workController.getWorkDetail);

@@ -71,6 +71,34 @@ class BlogController {
 		}
 	}
 
+	async updateBlog(ctx: Context) {
+		try {
+			const {
+				id,
+				title,
+				classify,
+				blog_image,
+				content_html,
+				content_text,
+				tags
+			} = ctx.request.body;
+			console.log(id, title);
+			const blog = new Blog();
+			blog.id = id;
+			title && (blog.title = title);
+			blog_image && (blog.blog_image = blog_image);
+			classify && (blog.classify = classify);
+			content_html && (blog.content_html = content_html);
+			content_text && (blog.content_text = content_text);
+			tags && (blog.tags = tags);
+			const res = await blogService.updateBlog(blog);
+			if (res) ctx.body = new Result(200, '修改博客成功', 'success');
+			else ctx.body = new Result(10001, '修改博客失败', 'fail');
+		} catch (error) {
+			ctx.app.emit('error', ERROR.updateBlogError, ctx, error);
+		}
+	}
+
 	// 删除博客
 	async removeBlog(ctx: Context) {
 		try {
