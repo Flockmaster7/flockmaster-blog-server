@@ -1,11 +1,8 @@
 import { Context, Next } from 'koa';
 import ERROR from '../utils/Error';
-import MarkdownIt from 'markdown-it';
 import fs from 'fs';
 import path from 'path';
 import { markdownToTxt } from 'markdown-to-txt';
-
-const md = new MarkdownIt();
 
 // 校验上传图片格式
 export const verifyUploadImg = async (ctx: Context, next: Next) => {

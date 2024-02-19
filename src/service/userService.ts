@@ -58,6 +58,8 @@ interface UserService {
 
 	// 获取用户列表
 	userList(): Promise<User[]>;
+
+	userDetail(id: number): Promise<User | null>;
 }
 
 export default UserService;

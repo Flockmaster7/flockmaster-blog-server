@@ -48,6 +48,8 @@ router.post(
 // 获取用户信息
 router.get('/getUserInfo', auth, userController.getUserInfo);
 
+router.post('/getUserDetail', auth, userController.getUserDetail);
+
 // 更新用户信息
 router.post('/updateUserInfo', auth, userController.updateUserInfo);
 

@@ -228,6 +228,19 @@ class UserController {
 			ctx.app.emit('error', ERROR.getUserListError, ctx, error);
 		}
 	}
+
+	async getUserDetail(ctx: Context) {
+		try {
+			const { id } = ctx.request.body;
+			if (!id)
+				return ctx.app.emit('error', ERROR.FormValidatorError, ctx);
+			const res = await userService.userDetail(id);
+			if (res) ctx.body = new Result(200, '获取用户详情成功', res);
+			else throw new Error('获取用户详情失败');
+		} catch (error) {
+			ctx.app.emit('error', ERROR.getUserInfoError, ctx, error);
+		}
+	}
 }
 
 export default UserController;

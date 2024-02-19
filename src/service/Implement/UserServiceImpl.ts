@@ -14,6 +14,16 @@ import UserService from '../UserService';
 
 const user_focusService = new User_FocusService();
 class UserServiceImpl implements UserService {
+	async userDetail(id: number): Promise<User | null> {
+		const res = await User.findOne({
+			where: { id },
+			attributes: {
+				exclude: ['password']
+			}
+		});
+		return res;
+	}
+
 	// 添加用户
 	async createUser(user_name: string, password: string): Promise<User> {
 		const id = uid();
