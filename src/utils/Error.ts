@@ -127,5 +127,15 @@ export default {
 		'获取朋友圈评论列表失败',
 		''
 	),
+	getRoleListError: errorForm('10001', '获取角色列表失败', ''),
+	getRoleDetailError: errorForm('10001', '获取角色详情失败', ''),
+	addRoleError: errorForm('10001', '添加角色失败', ''),
+	updateRoleError: errorForm('10001', '修改角色失败', ''),
+	removeRoleError: errorForm('10001', '删除角色失败', ''),
+	getPermissionListError: errorForm('10001', '获取权限列表失败', ''),
+	getPermissionDetailError: errorForm('10001', '获取权限详情失败', ''),
+	addPermissionError: errorForm('10001', '添加权限失败', ''),
+	updatePermissionError: errorForm('10001', '修改权限失败', ''),
+	removePermissionError: errorForm('10001', '删除权限失败', ''),
 	validatorParamsError: errorForm('11111', '参数错误', '')
 };

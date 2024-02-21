@@ -1,5 +1,4 @@
 import Album from '../model/Album';
-import Photo from '../model/Photo';
 import { PageType } from '../types';
 
 interface AlbumService {

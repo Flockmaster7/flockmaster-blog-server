@@ -11,6 +11,8 @@ import User_Blog_Like from './User_Blog_Like';
 import Blog from './Blog';
 import User_Blog_Collect from './User_Blog_Collect';
 import User_Follow from './User_Follow';
+import Role from './Role';
+import UserRole from './UserRole';
 
 @Table({ tableName: 'user' })
 export default class User extends Model<User> {
@@ -95,4 +97,7 @@ export default class User extends Model<User> {
 
 	@BelongsToMany(() => User, () => User_Follow, 'focus_id', 'fans_id')
 	userFans: User[];
+
+	@BelongsToMany(() => Role, () => UserRole)
+	roles: Role[];
 }
