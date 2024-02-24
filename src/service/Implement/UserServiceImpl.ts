@@ -11,15 +11,26 @@ import Tag from '../../model/Tag';
 import Blog from '../../model/Blog';
 import Work from '../../model/Work';
 import UserService from '../UserService';
+import UserRoleServiceImpl from './UserRoleServiceImpl';
+import Role from '../../model/Role';
 
 const user_focusService = new User_FocusService();
 class UserServiceImpl implements UserService {
+	userRoleService: UserRoleServiceImpl = new UserRoleServiceImpl();
+
 	async userDetail(id: number): Promise<User | null> {
 		const res = await User.findOne({
 			where: { id },
 			attributes: {
 				exclude: ['password']
-			}
+			},
+			include: [
+				{
+					model: Role,
+					as: 'roles',
+					attributes: ['id', 'name']
+				}
+			]
 		});
 		return res;
 	}
@@ -86,9 +97,17 @@ class UserServiceImpl implements UserService {
 	}
 
 	// 更新用户信息
-	async updateUser(userInfo: UpdateUserInfoParamsType) {
-		const wrapper = { id: userInfo.id };
-		const res = await User.update(userInfo, { where: wrapper });
+	async updateUser(user: User) {
+		const wrapper = { id: user.id };
+		const suser = await User.findOne({
+			where: wrapper
+		});
+		if (!suser) return false;
+		if (user.roles && user.roles.length !== 0) {
+			await this.userRoleService.removeByUserId(user.id);
+			await suser.$add('roles', user.roles);
+		}
+		const res = await User.update(user, { where: wrapper });
 		return res[0] > 0 ? true : false;
 	}
 
@@ -285,6 +304,13 @@ class UserServiceImpl implements UserService {
 				'user_focus',
 				'user_fans',
 				'createdAt'
+			],
+			include: [
+				{
+					model: Role,
+					as: 'roles',
+					attributes: ['id', 'name']
+				}
 			]
 		});
 		return res;

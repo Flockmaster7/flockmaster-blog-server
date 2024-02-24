@@ -49,7 +49,9 @@ class UserController {
 		try {
 			const { password } = ctx.request.body;
 			const id = ctx.state.userInfo.id;
-			const res = await userService.updateUser({ id, password });
+			const user = new User();
+			(user.id = id), (user.password = password);
+			const res = await userService.updateUser(user);
 			if (res) {
 				ctx.body = new Result(200, '修改密码成功', 'success');
 			} else {

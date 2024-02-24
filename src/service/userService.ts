@@ -25,7 +25,7 @@ interface UserService {
 	}: GetUserInfoParamsType): Promise<User | null>;
 
 	// 更新用户信息
-	updateUser(userInfo: UpdateUserInfoParamsType): Promise<boolean>;
+	updateUser(user: Partial<User>): Promise<boolean>;
 
 	// 删除用户
 	deleteUser(id: number): Promise<boolean>;

@@ -2,6 +2,7 @@ import { PageType } from '../../types';
 import Role from '../../model/Role';
 import RoleService from '../RoleService';
 import RolePermissionServiceImpl from './RolePermissionServiceImpl';
+import Permission from '../../model/Permission';
 
 export default class RoleServiceImpl implements RoleService {
 	rolePermissionService: RolePermissionServiceImpl =
@@ -31,6 +32,13 @@ export default class RoleServiceImpl implements RoleService {
 			where: {
 				id
 			},
+			include: [
+				{
+					model: Permission,
+					as: 'permissions',
+					attributes: ['id', 'name', 'action']
+				}
+			],
 			attributes: {
 				exclude: ['isDeleted']
 			}

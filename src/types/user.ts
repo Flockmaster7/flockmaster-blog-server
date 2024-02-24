@@ -13,7 +13,7 @@ export interface GetUserInfoParamsType {
 }
 
 export interface UpdateUserInfoParamsType {
-	id?: number | string;
+	id: number;
 	user_name?: string;
 	password?: string;
 	is_admin?: number;
@@ -22,4 +22,5 @@ export interface UpdateUserInfoParamsType {
 	user_image?: string;
 	user_like?: number;
 	user_fans?: number;
+	roles: number[];
 }
