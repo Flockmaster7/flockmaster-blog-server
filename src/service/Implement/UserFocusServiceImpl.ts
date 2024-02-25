@@ -1,6 +1,7 @@
-import User_Focus from '../model/User_Follow';
+import User_Focus from '../../model/User_Follow';
+import UserFocusService from '../UserFocusService';
 
-class User_FocusService {
+class UserFocusServiceImpl implements UserFocusService {
 	// 删除
 	async deleteUserFollow(
 		focus_id: number,
@@ -25,4 +26,4 @@ class User_FocusService {
 	}
 }
 
-export default User_FocusService;
+export default UserFocusServiceImpl;

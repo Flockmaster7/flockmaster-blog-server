@@ -1,9 +1,9 @@
 import { Context } from 'koa';
 import Result from '../utils/Result';
 import ERROR from '../utils/Error';
-import DataService from '../service/dataService';
+import DataServiceImpl from '../service/Implement/DataServiceImpl';
 
-const dataService = new DataService();
+const dataService = new DataServiceImpl();
 
 class DataController {
 	async dailyNum(ctx: Context) {
@@ -36,7 +36,7 @@ class DataController {
 		}
 	}
 
-    async hotBlog(ctx: Context) {
+	async hotBlog(ctx: Context) {
 		try {
 			const res = await dataService.getHotBlog();
 			if (res) ctx.body = new Result(200, '获取热门文章排行成功', res);

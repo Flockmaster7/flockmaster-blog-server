@@ -1,15 +1,8 @@
-import { Op } from 'sequelize';
 import User from '../model/User';
-import User_Follow from '../model/User_Follow';
-import { GetUserInfoParamsType, UpdateUserInfoParamsType } from '../types/user';
-import User_FocusService from './user_focusService';
-import { uid } from 'uid';
-import Tag from '../model/Tag';
-import Blog from '../model/Blog';
-import Work from '../model/Work';
+import { GetUserInfoParamsType } from '../types/user';
+
 import { PageType } from '../types';
 
-const user_focusService = new User_FocusService();
 interface UserService {
 	// 添加用户
 	createUser(user_name: string, password: string): Promise<User>;

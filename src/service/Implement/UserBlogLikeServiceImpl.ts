@@ -1,6 +1,7 @@
-import User_Blog_Like from '../model/User_Blog_Like';
+import User_Blog_Like from '../../model/User_Blog_Like';
+import UserBlogLikeService from '../UserBlogLikeService';
 
-class User_Blog_LikeService {
+class UserBlogLikeServiceImpl implements UserBlogLikeService {
 	// 删除
 	async deleteUserBlogLikeById(blog_id: number, user_id: number) {
 		const wrapper = {
@@ -12,4 +13,4 @@ class User_Blog_LikeService {
 	}
 }
 
-export default User_Blog_LikeService;
+export default UserBlogLikeServiceImpl;

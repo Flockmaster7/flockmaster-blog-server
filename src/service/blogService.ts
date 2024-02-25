@@ -2,21 +2,19 @@ import Blog from '../model/Blog';
 import Blog_Tag from '../model/Blog_Tag';
 import { BlogFind, BlogObject, Blog_tagType } from '../types/blog';
 import { Op } from 'sequelize';
-import { TagType } from '../types/tag';
 import Tag from '../model/Tag';
-import Bolg_tagService from './blog_tagService';
 import User from '../model/User';
-import User_Blog_LikeService from './user_blog_likeService';
-import User_Blog_CollectService from './user_blog_collectService';
 import User_Blog_Like from '../model/User_Blog_Like';
 import User_Blog_Collect from '../model/User_Blog_Collect';
-import User_FocusService from './user_focusService';
 import sequelize from '../db/mysql';
+import UserBlogCollectServiceImpl from './Implement/UserBlogCollectServiceImpl';
+import UserBlogLikeServiceImpl from './Implement/UserBlogLikeServiceImpl';
+import BolgTagServiceImpl from './Implement/BlogTagServiceImpl';
 
-const blogTagService = new Bolg_tagService();
-const user_blog_likeService = new User_Blog_LikeService();
-const user_blog_collectService = new User_Blog_CollectService();
-const user_focusService = new User_FocusService();
+const blogTagService = new BolgTagServiceImpl();
+const userBlogLikeService = new UserBlogLikeServiceImpl();
+const userBlogCollectService = new UserBlogCollectServiceImpl();
+
 class BlogService {
 	// 添加博客
 	async createBlog(
@@ -304,7 +302,7 @@ class BlogService {
 			{ where: { id } }
 		);
 		if (res[0] > 0) {
-			await user_blog_likeService.deleteUserBlogLikeById(id, user.id);
+			await userBlogLikeService.deleteUserBlogLikeById(id, user.id);
 			return true;
 		} else {
 			return false;
@@ -407,10 +405,7 @@ class BlogService {
 			{ where: { id } }
 		);
 		if (res[0] > 0) {
-			await user_blog_collectService.deleteUserBlogCollectById(
-				id,
-				user.id
-			);
+			await userBlogCollectService.deleteUserBlogCollectById(id, user.id);
 			return true;
 		} else {
 			return false;

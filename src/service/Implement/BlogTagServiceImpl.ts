@@ -1,7 +1,7 @@
-import Blog_Tag from '../model/Blog_Tag';
-import { TagType } from '../types/tag';
+import Blog_Tag from '../../model/Blog_Tag';
+import BolgTagService from '../BolgTagService';
 
-class Bolg_tagService {
+class BolgTagServiceImpl implements BolgTagService {
 	async deleteBlogTagByBlogId(id: number) {
 		const wrapper = {
 			blog_id: id
@@ -11,4 +11,4 @@ class Bolg_tagService {
 	}
 }
 
-export default Bolg_tagService;
+export default BolgTagServiceImpl;

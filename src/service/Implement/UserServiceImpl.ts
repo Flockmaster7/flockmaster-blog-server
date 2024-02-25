@@ -1,11 +1,7 @@
 import { Op } from 'sequelize';
 import User from '../../model/User';
 import User_Follow from '../../model/User_Follow';
-import {
-	GetUserInfoParamsType,
-	UpdateUserInfoParamsType
-} from '../../types/user';
-import User_FocusService from '../user_focusService';
+import { GetUserInfoParamsType } from '../../types/user';
 import { uid } from 'uid';
 import Tag from '../../model/Tag';
 import Blog from '../../model/Blog';
@@ -13,8 +9,10 @@ import Work from '../../model/Work';
 import UserService from '../UserService';
 import UserRoleServiceImpl from './UserRoleServiceImpl';
 import Role from '../../model/Role';
+import UserFocusServiceImpl from './UserFocusServiceImpl';
 
-const user_focusService = new User_FocusService();
+const userFocusService = new UserFocusServiceImpl();
+
 class UserServiceImpl implements UserService {
 	userRoleService: UserRoleServiceImpl = new UserRoleServiceImpl();
 
@@ -160,7 +158,7 @@ class UserServiceImpl implements UserService {
 			{ where: { id: user2?.dataValues.id } }
 		);
 		if (res1[0] > 0 && res2[0] > 0) {
-			await user_focusService.deleteUserFollow(user1?.id, user2?.id);
+			await userFocusService.deleteUserFollow(user1?.id, user2?.id);
 			return true;
 		} else {
 			return false;
@@ -253,7 +251,7 @@ class UserServiceImpl implements UserService {
 
 	// 是否关注
 	async isFollowUser(follow_id: number, fans_id: number): Promise<boolean> {
-		const isFollow = await user_focusService.isFollow(follow_id, fans_id);
+		const isFollow = await userFocusService.isFollow(follow_id, fans_id);
 		return isFollow;
 	}
 

@@ -93,7 +93,6 @@ class CommonController {
 
 	public async getHotBlogs(ctx: Context) {
 		try {
-			console.log(commonService);
 			const res = await commonService.getHotBlogs();
 			ctx.body = new Result<Blog[]>(200, '获取首页热门文章成功', res);
 		} catch (error) {
