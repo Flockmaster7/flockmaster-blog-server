@@ -1,4 +1,5 @@
 import Work from '../model/Work';
+import { PageType } from '../types';
 import { WorkType } from '../types/work';
 
 interface WorkService {
@@ -11,7 +12,11 @@ interface WorkService {
 	getDetail(id: number): Promise<Work | null>;
 
 	// 获取作品列表
-	getList(pageNum: number, pageSize: number): any;
+	getList(
+		pageNum: number,
+		pageSize: number,
+		wrapper: Partial<Work>
+	): Promise<PageType<Work>>;
 
 	// 删除作品
 	deleteWork(id: number): Promise<boolean>;

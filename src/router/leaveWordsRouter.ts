@@ -26,7 +26,7 @@ router.delete(
 );
 
 // 查询留言列表
-router.get(
+router.post(
 	'/getLeaveWordList/:pageNum/:pageSize',
 	validatorPage,
 	leaveWordsController.getLeaveWordList

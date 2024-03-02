@@ -18,7 +18,7 @@ router.post('/update', auth, workController.updateWork);
 router.get('/getDetail/:id?', validatorId, workController.getWorkDetail);
 
 // 获取作品列表
-router.get(
+router.post(
 	'/getList/:pageNum?/:pageSize?',
 	validatorPage,
 	workController.getWorkList

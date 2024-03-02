@@ -13,7 +13,7 @@ router.post('/update', auth, roleController.updateRole);
 
 router.get('/getDetail/:id?', validatorId, roleController.getRoleDetail);
 
-router.get(
+router.post(
 	'/getList/:pageNum?/:pageSize?',
 	validatorPage,
 	roleController.getRoleList

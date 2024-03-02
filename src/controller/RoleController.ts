@@ -9,7 +9,7 @@ const roleService = new RoleServiceImpl();
 class RoleController {
 	async getRoleList(ctx: Context) {
 		try {
-			const wrapper = ctx.request.body;
+			const wrapper = ctx.request?.body?.wrapper;
 			const res = await roleService.getList(
 				Number(ctx.params.pageNum),
 				Number(ctx.params.pageSize),

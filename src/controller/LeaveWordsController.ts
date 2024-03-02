@@ -33,9 +33,11 @@ class LeaveWordsController {
 		try {
 			const pageNum = ctx.params.pageNum;
 			const pageSize = ctx.params.pageSize;
+			const wrapper = ctx.request?.body?.wrapper;
 			const res = await leaveWordsService.getLeaveWords(
 				pageNum,
-				pageSize
+				pageSize,
+				wrapper
 			);
 			ctx.body = new Result(200, '获取留言列表成功', res);
 		} catch (error) {

@@ -1,6 +1,7 @@
 import { Op } from 'sequelize';
 import Tag from '../model/Tag';
 import { TagType } from '../types/tag';
+import { PageType } from '../types';
 
 interface TagService {
 	// 添加标签
@@ -13,7 +14,11 @@ interface TagService {
 	deleteTag(id: number): Promise<boolean>;
 
 	// 获取标签列表
-	getList(pageNum: number, pageSize: number): any;
+	getList(
+		pageNum: number,
+		pageSize: number,
+		wrapper?: Partial<Tag>
+	): Promise<PageType<Tag>>;
 
 	// 获取特定id标签列表
 	getTagListByIdList(idList: number[]): Promise<Tag[] | null>;

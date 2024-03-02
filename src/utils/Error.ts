@@ -45,7 +45,7 @@ export default {
 	createTagError: errorForm('10001', '添加标签失败', ''),
 	updateTagError: errorForm('10001', '修改标签失败', ''),
 	removeTagError: errorForm('10001', '删除标签失败', ''),
-	getTagListError: errorForm('10001', '获取作品列表失败', ''),
+	getTagListError: errorForm('10001', '获取标签列表失败', ''),
 	deleteBlogError: errorForm('10001', '删除博客失败', ''),
 	addBlogReadError: errorForm('10001', '增加阅读量失败', ''),
 	likeBlogError: errorForm('10001', '点赞失败', ''),

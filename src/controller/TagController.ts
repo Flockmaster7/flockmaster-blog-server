@@ -2,6 +2,7 @@ import { Context } from 'koa';
 import Result from '../utils/Result';
 import ERROR from '../utils/Error';
 import TagServiceImpl from '../service/Implement/TagServiceImpl';
+import { Op } from 'sequelize';
 
 const tagService = new TagServiceImpl();
 
@@ -61,7 +62,12 @@ class TagController {
 	async getTagList(ctx: Context) {
 		try {
 			const { pageSize, pageNum } = ctx.params;
-			const data = await tagService.getList(pageNum * 1, pageSize * 1);
+			const wrapper = ctx.request?.body?.wrapper;
+			const data = await tagService.getList(
+				pageNum * 1,
+				pageSize * 1,
+				wrapper
+			);
 			ctx.body = new Result(200, '获取标签列表成功', data);
 		} catch (error) {
 			ctx.app.emit('error', ERROR.getTagListError, ctx, error);

@@ -10,7 +10,6 @@ const auth = async (ctx: Context, next: Next) => {
 	try {
 		const user = jwt.verify(token, processEnv.JWT_SECRET as string);
 		ctx.state.user = user;
-		console.log(ctx.state.user);
 	} catch (error: any) {
 		switch (error.name) {
 			case 'TokenExpiredError':

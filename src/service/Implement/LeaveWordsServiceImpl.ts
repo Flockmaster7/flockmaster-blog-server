@@ -1,3 +1,4 @@
+import { Op } from 'sequelize';
 import LeaveWords from '../../model/LeaveWords';
 import User from '../../model/User';
 import LeaveWordsService from '../LeaveWordsService';
@@ -52,18 +53,29 @@ class LeaveWordsServiceImpl implements LeaveWordsService {
 					id: wrapper.parent_id
 				}
 			});
-			console.log(parentLeaveWords);
 			parentLeaveWords?.$add('children', res);
 		}
 		return res.dataValues;
 	}
 
 	// 获取留言列表
-	async getLeaveWords(pageNum: number, pageSize: number) {
+	async getLeaveWords(
+		pageNum: number,
+		pageSize: number,
+		wrapper: Partial<LeaveWords>
+	) {
+		let filter = {};
+		if (wrapper) {
+			wrapper.content &&
+				Object.assign(filter, {
+					content: { [Op.like]: `%${wrapper?.content}%` }
+				});
+		}
 		const offset = (pageNum - 1) * pageSize;
 		const { count, rows } = await LeaveWords.findAndCountAll({
 			where: {
-				parent_id: null
+				parent_id: null,
+				...filter
 			},
 			include: [
 				{

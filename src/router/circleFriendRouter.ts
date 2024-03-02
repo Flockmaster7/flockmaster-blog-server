@@ -7,7 +7,7 @@ const router = new Router({ prefix: '/api/circleFriend' });
 
 const circleFriendController = new CircleFriendController();
 
-router.get(
+router.post(
 	'/getList/:pageNum?/:pageSize?',
 	validatorPage,
 	circleFriendController.getCircleFriendList

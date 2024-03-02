@@ -21,7 +21,6 @@ const userVerify = async (ctx: Context, next: Next) => {
 	const { user_name } = ctx.request.body;
 	try {
 		const res = await userService.getUserInfo({ user_name });
-		console.log(res);
 		if (res) {
 			console.error('用户已经存在', { user_name });
 			ctx.app.emit('error', ERROR.userAlreadExist, ctx);
@@ -71,7 +70,6 @@ const userIsExist = async (ctx: Context, next: Next) => {
 	const { user_name } = ctx.request.body;
 	try {
 		const res = await userService.getUserInfo({ user_name });
-		console.log(res);
 		ctx.state.userInfo = res;
 		if (!res) {
 			console.error('用户不存在', { user_name });

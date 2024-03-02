@@ -1,3 +1,4 @@
+import { Op } from 'sequelize';
 import sequelize from '../../db/mysql';
 import CircleFriend from '../../model/CircleFriend';
 import CircleFriendComment from '../../model/CircleFriendComment';
@@ -107,8 +108,15 @@ class CircleFriendServiceImpl implements CircleFriendService {
 		wrapper?: Partial<CircleFriend>
 	): Promise<PageType<CircleFriend>> {
 		const total = await CircleFriend.count();
+		let filter = {};
+		if (wrapper) {
+			wrapper.content &&
+				Object.assign(filter, {
+					content: { [Op.like]: `%${wrapper?.content}%` }
+				});
+		}
 		const { rows } = await CircleFriend.findAndCountAll({
-			where: wrapper,
+			where: filter,
 			attributes: {
 				exclude: ['isDeleted'],
 				include: [

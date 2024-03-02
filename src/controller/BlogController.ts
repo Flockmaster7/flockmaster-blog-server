@@ -82,7 +82,6 @@ class BlogController {
 				content_text,
 				tags
 			} = ctx.request.body;
-			console.log(id, title);
 			const blog = new Blog();
 			blog.id = id;
 			title && (blog.title = title);
@@ -158,7 +157,6 @@ class BlogController {
 			const { id } = ctx.params;
 			if (!id)
 				return ctx.app.emit('error', ERROR.FormValidatorError, ctx);
-			console.log(id);
 			const data = await blogService.getBlogInfo(id * 1);
 			if (data) {
 				// 获取博客对应的标签
@@ -190,7 +188,6 @@ class BlogController {
 		try {
 			const { pageNum, pageSize } = ctx.params;
 			const { tags } = ctx.request.body;
-			console.log(ctx.request.body, tags);
 			const data = await blogService.getBlogListByTag(
 				tags,
 				pageNum * 1,
@@ -434,7 +431,8 @@ class BlogController {
 
 	async getSubfieldList(ctx: Context) {
 		try {
-			const res = await subfieldService.getList(1, 999);
+			const wrapper = ctx.request?.body?.wrapper;
+			const res = await subfieldService.getList(1, 999, wrapper);
 			ctx.body = new Result(200, '获取分栏成功', res);
 		} catch (error) {
 			ctx.app.emit('error', ERROR.getSubfieldError, ctx, error);

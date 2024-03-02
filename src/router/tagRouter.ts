@@ -19,7 +19,7 @@ router.get(
 	tagController.getCurrentTagList
 );
 
-router.get(
+router.post(
 	'/tag/getTagList/:pageNum?/:pageSize?',
 	validatorPage,
 	tagController.getTagList

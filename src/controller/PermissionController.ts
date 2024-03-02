@@ -9,7 +9,7 @@ const permissionService = new PermissionServiceImpl();
 class PermissionController {
 	async getPermissionList(ctx: Context) {
 		try {
-			const wrapper = ctx.request.body;
+			const wrapper = ctx.request?.body?.wrapper;
 			const res = await permissionService.getList(
 				Number(ctx.params.pageNum),
 				Number(ctx.params.pageSize),

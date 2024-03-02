@@ -61,7 +61,12 @@ class WorkController {
 	async getWorkList(ctx: Context) {
 		try {
 			const { pageSize, pageNum } = ctx.params;
-			const data = await workService.getList(pageNum * 1, pageSize * 1);
+			const wrapper = ctx.request?.body?.wrapper;
+			const data = await workService.getList(
+				pageNum * 1,
+				pageSize * 1,
+				wrapper
+			);
 			ctx.body = new Result(200, '获取作品列表成功', data);
 		} catch (error) {
 			ctx.app.emit('error', ERROR.getWorkListError, ctx, error);

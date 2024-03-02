@@ -17,7 +17,7 @@ router.get(
 	permissionController.getPermissionDetail
 );
 
-router.get(
+router.post(
 	'/getList/:pageNum?/:pageSize?',
 	validatorPage,
 	permissionController.getPermissionList

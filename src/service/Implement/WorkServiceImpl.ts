@@ -1,3 +1,4 @@
+import { Op } from 'sequelize';
 import Work from '../../model/Work';
 import { WorkType } from '../../types/work';
 import WorkService from '../WorkService';
@@ -37,9 +38,21 @@ class WorkServiceImpl implements WorkService {
 	}
 
 	// 获取作品列表
-	async getList(pageNum: number, pageSize: number) {
+	async getList(pageNum: number, pageSize: number, wrapper: Partial<Work>) {
+		let filter = {};
+		if (wrapper) {
+			wrapper.work_title &&
+				Object.assign(filter, {
+					work_title: { [Op.like]: `%${wrapper?.work_title}%` }
+				});
+			wrapper.work_des &&
+				Object.assign(filter, {
+					work_des: { [Op.like]: `%${wrapper?.work_des}%` }
+				});
+		}
 		const offset = (pageNum - 1) * pageSize;
 		const { count, rows } = await Work.findAndCountAll({
+			where: filter,
 			offset,
 			limit: pageSize,
 			attributes: [
@@ -52,7 +65,6 @@ class WorkServiceImpl implements WorkService {
 				'updatedAt'
 			]
 		});
-		console.log(count, rows);
 		return {
 			pageNum,
 			pageSize,

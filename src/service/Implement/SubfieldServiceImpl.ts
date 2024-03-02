@@ -2,6 +2,7 @@ import Subfield from '../../model/Subfield';
 import { PageType } from '../../types';
 import SubfieldService from '../SubfieldService';
 import sequelize from '../../db/mysql';
+import { Op } from 'sequelize';
 
 export default class SubfieldServiceImpl implements SubfieldService {
 	async getList(
@@ -9,8 +10,15 @@ export default class SubfieldServiceImpl implements SubfieldService {
 		pageSize: number,
 		wrapper?: Partial<Subfield>
 	): Promise<PageType<Subfield>> {
+		let filter = {};
+		if (wrapper) {
+			wrapper.name &&
+				Object.assign(filter, {
+					name: { [Op.like]: `%${wrapper?.name}%` }
+				});
+		}
 		const { rows } = await Subfield.findAndCountAll({
-			where: wrapper,
+			where: filter,
 			attributes: [
 				'id',
 				'name',

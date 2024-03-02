@@ -14,7 +14,7 @@ const circleFriendCommentService = new CircleFriendCommentServiceImpl();
 export default class CircleFriendController {
 	async getCircleFriendList(ctx: Context) {
 		try {
-			const wrapper = ctx.request.body;
+			const wrapper = ctx.request?.body?.wrapper;
 			const res = await circleFriendService.getList(
 				Number(ctx.params.pageNum),
 				Number(ctx.params.pageSize),

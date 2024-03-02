@@ -1,7 +1,7 @@
-import { Op } from 'sequelize';
 import TagService from '../TagService';
 import Tag from '../../model/Tag';
 import { TagType } from '../../types/tag';
+import { Op } from 'sequelize';
 
 class TagServiceImpl implements TagService {
 	// 添加标签
@@ -27,9 +27,21 @@ class TagServiceImpl implements TagService {
 	}
 
 	// 获取标签列表
-	async getList(pageNum: number, pageSize: number) {
+	async getList(pageNum: number, pageSize: number, wrapper?: Partial<Tag>) {
 		const offset = (pageNum - 1) * pageSize;
+		let filter = {};
+		if (wrapper) {
+			wrapper.tag_name &&
+				Object.assign(filter, {
+					tag_name: { [Op.like]: `%${wrapper?.tag_name}%` }
+				});
+			wrapper.tag_classify &&
+				Object.assign(filter, {
+					tag_classify: wrapper.tag_classify
+				});
+		}
 		const { count, rows } = await Tag.findAndCountAll({
+			where: filter,
 			offset,
 			limit: pageSize,
 			attributes: [

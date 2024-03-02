@@ -13,7 +13,6 @@ class CommentServiceImpl implements CommentService {
 					id: wrapper.parent_id
 				}
 			});
-			console.log(parentComment);
 			parentComment?.$add('children', res);
 		}
 		return res.dataValues;

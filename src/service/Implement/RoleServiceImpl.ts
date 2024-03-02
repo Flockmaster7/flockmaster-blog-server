@@ -3,6 +3,7 @@ import Role from '../../model/Role';
 import RoleService from '../RoleService';
 import RolePermissionServiceImpl from './RolePermissionServiceImpl';
 import Permission from '../../model/Permission';
+import { Op } from 'sequelize';
 
 export default class RoleServiceImpl implements RoleService {
 	rolePermissionService: RolePermissionServiceImpl =
@@ -13,8 +14,15 @@ export default class RoleServiceImpl implements RoleService {
 		pageSize: number,
 		wrapper?: Partial<Role>
 	): Promise<PageType<Role>> {
+		let filter = {};
+		if (wrapper) {
+			wrapper.name &&
+				Object.assign(filter, {
+					name: { [Op.like]: `%${wrapper?.name}%` }
+				});
+		}
 		const { rows, count } = await Role.findAndCountAll({
-			where: wrapper,
+			where: filter,
 			attributes: ['id', 'name', 'createdAt', 'updatedAt'],
 			offset: (pageNum - 1) * pageSize,
 			limit: pageSize

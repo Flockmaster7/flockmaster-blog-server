@@ -8,7 +8,8 @@ interface LeaveWordsService {
 	// 获取留言列表
 	getLeaveWords(
 		pageNum: number,
-		pageSize: number
+		pageSize: number,
+		wrapper: Partial<LeaveWords>
 	): Promise<PageType<LeaveWords>>;
 
 	// 获取子留言

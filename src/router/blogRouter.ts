@@ -174,7 +174,7 @@ router.post('/top/:id', auth, validatorId, blogController.topBlog);
 
 router.post('/cancelTop/:id', auth, validatorId, blogController.cancelTopBlog);
 
-router.get('/subfield/list', blogController.getSubfieldList);
+router.post('/subfield/list', blogController.getSubfieldList);
 
 router.get(
 	'/subfield/detail/:id',
