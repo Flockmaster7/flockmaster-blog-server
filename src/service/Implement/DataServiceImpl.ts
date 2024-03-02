@@ -8,12 +8,12 @@ import Album from '../../model/Album';
 import LeaveWords from '../../model/LeaveWords';
 import Tag from '../../model/Tag';
 import Work from '../../model/Work';
-import BlogService from '../blogService';
 import DataService from '../DataService';
-
-const blogService = new BlogService();
+import BlogServiceImpl from './BlogServiceImpl';
 
 class DataServiceImpl implements DataService {
+	blogService: BlogServiceImpl = new BlogServiceImpl();
+
 	// 增加网站访问量
 	async addWebsiteVisit(userAgent: string): Promise<boolean> {
 		const id = uid();
@@ -98,7 +98,7 @@ class DataServiceImpl implements DataService {
 	}
 
 	async getHotBlog(): Promise<any> {
-		const { rows } = await blogService.getBlogList(1, 5, {
+		const { rows } = await this.blogService.getBlogList(1, 5, {
 			orderByRead: true
 		});
 		const data = rows.map((item) => {

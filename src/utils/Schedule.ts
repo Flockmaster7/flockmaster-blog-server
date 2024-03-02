@@ -24,7 +24,7 @@ export const staticInit = async () => {
 	if (NODE_ENV === 'development') {
 		staticPath = path.join('src', 'static');
 	} else {
-		staticPath = path.join('static');
+		staticPath = path.join('dist', 'static');
 	}
 
 	fs.stat(staticPath, (err: any, stats: any) => {
@@ -53,10 +53,10 @@ export const deleteStatic = async () => {
 	if (NODE_ENV === 'development') {
 		staticPath = path.join('src', 'static');
 	} else {
-		staticPath = path.join('static');
+		staticPath = path.join('dist', 'static');
 	}
 
-	schedule.scheduleJob('20 23 * * *', async () => {
+	schedule.scheduleJob('55 23 * * *', async () => {
 		fs.readdir(staticPath, (err: any, files: any) => {
 			if (err) {
 				console.error('读取static失败:', err);

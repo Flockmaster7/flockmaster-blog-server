@@ -1,14 +1,14 @@
 import { Context } from 'koa';
 import Result from '../utils/Result';
 import ERROR from '../utils/Error';
-import BlogService from '../service/blogService';
 import { uploadFile } from '../utils/Cos';
 import TagServiceImpl from '../service/Implement/TagServiceImpl';
 import Blog from '../model/Blog';
 import Subfield from '../model/Subfield';
 import SubfieldServiceImpl from '../service/Implement/SubfieldServiceImpl';
+import BlogServiceImpl from '../service/Implement/BlogServiceImpl';
 
-const blogService = new BlogService();
+const blogService = new BlogServiceImpl();
 const tagService = new TagServiceImpl();
 const subfieldService = new SubfieldServiceImpl();
 

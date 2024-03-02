@@ -4,16 +4,16 @@ import Common from '../../model/Common';
 import { WebsiteType } from '../../types';
 import Comment from '../../model/Comment';
 import Blog from '../../model/Blog';
-import BlogService from '../blogService';
 import CommentServiceImpl from './CommentServiceImpl';
 import CommonService from '../CommonService';
 import TagServiceImpl from './TagServiceImpl';
 import WorkServiceImpl from './WorkServiceImpl';
 import LeaveWordsServiceImpl from './LeaveWordsServiceImpl';
+import BlogServiceImpl from './BlogServiceImpl';
 
 class CommonServiceImpl implements CommonService {
 	commentService: CommentServiceImpl = new CommentServiceImpl();
-	blogService: BlogService = new BlogService();
+	blogService: BlogServiceImpl = new BlogServiceImpl();
 	tagService: TagServiceImpl = new TagServiceImpl();
 	workService: WorkServiceImpl = new WorkServiceImpl();
 	leaveWordsService: LeaveWordsServiceImpl = new LeaveWordsServiceImpl();
