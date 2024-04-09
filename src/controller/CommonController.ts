@@ -17,20 +17,34 @@ class CommonController {
 				videos: []
 			};
 			if (ctx.state.imageList.length !== 0) {
-				for (const item of ctx.state.imageList) {
-					await uploadFile(item.filepath, item.newFilename, 'images');
-					res.images.push({
-						imageUrl: `https://ggkt-atguigu-1313888024.cos.ap-guangzhou.myqcloud.com/flockmaster-blogs/images/${item.newFilename}`
-					});
-				}
+				const uploadImagePromises = ctx.state.imageList.map(
+					(item: any) => {
+						res.images.push({
+							imageUrl: `https://ggkt-atguigu-1313888024.cos.ap-guangzhou.myqcloud.com/flockmaster-blogs/images/${item.newFilename}`
+						});
+						return uploadFile(
+							item.filepath,
+							item.newFilename,
+							'images'
+						);
+					}
+				);
+				await Promise.all(uploadImagePromises);
 			}
 			if (ctx.state.videoList.length !== 0) {
-				for (const item of ctx.state.videoList) {
-					await uploadFile(item.filepath, item.newFilename, 'videos');
-					res.videos.push({
-						videoUrl: `https://ggkt-atguigu-1313888024.cos.ap-guangzhou.myqcloud.com/flockmaster-blogs/videos/${item.newFilename}`
-					});
-				}
+				const uploadVideoPromises = ctx.state.videoList.map(
+					(item: any) => {
+						res.videos.push({
+							videoUrl: `https://ggkt-atguigu-1313888024.cos.ap-guangzhou.myqcloud.com/flockmaster-blogs/videos/${item.newFilename}`
+						});
+						return uploadFile(
+							item.filepath,
+							item.newFilename,
+							'videos'
+						);
+					}
+				);
+				await Promise.all(uploadVideoPromises);
 			}
 			ctx.body = new Result(200, '上传成功', res);
 		} catch (error) {
