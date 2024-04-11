@@ -47,15 +47,19 @@ class UserController {
 	// 修改密码
 	async updatePassword(ctx: Context) {
 		try {
-			const { password } = ctx.request.body;
-			const id = ctx.state.userInfo.id;
+			const { userId, password } = ctx.request.body;
+			if (!userId || !password) {
+				ctx.body = new Result(10001, '修改密码失败', 'fail');
+				return;
+			}
 			const user = new User();
-			(user.id = id), (user.password = password);
+			user.id = userId;
+			user.password = password;
 			const res = await userService.updateUser(user);
 			if (res) {
 				ctx.body = new Result(200, '修改密码成功', 'success');
 			} else {
-				ctx.body = new Result(10007, '修改密码失败', 'fail');
+				ctx.body = new Result(10001, '修改密码失败', 'fail');
 			}
 		} catch (error) {
 			console.error('修改密码失败', error);
