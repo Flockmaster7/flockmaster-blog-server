@@ -107,6 +107,16 @@ class CommentServiceImpl implements CommentService {
 			where: {
 				parent_id: parent_id
 			},
+			attributes: {
+				include: [
+					[
+						sequelize.literal(
+							'(SELECT COUNT(*) FROM comment_dianzan WHERE comment_dianzan.comment_id = Comment.id)'
+						),
+						'dianzanCount'
+					]
+				]
+			},
 			include: [
 				{
 					model: User,
@@ -116,6 +126,16 @@ class CommentServiceImpl implements CommentService {
 				{
 					model: Comment,
 					as: 'targetComment',
+					attributes: {
+						include: [
+							[
+								sequelize.literal(
+									'(SELECT COUNT(*) FROM comment_dianzan WHERE comment_dianzan.comment_id = Comment.id)'
+								),
+								'dianzanCount'
+							]
+						]
+					},
 					include: [
 						{
 							model: User,
