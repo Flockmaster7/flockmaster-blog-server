@@ -12,7 +12,7 @@ const photoController = new PhotoController();
 router.post('/create/:id', auth, validatorId, photoController.createPhoto);
 
 // 更新相册图片
-router.post('/update', auth, validatorId, photoController.updatePhoto);
+router.post('/update', auth, photoController.updatePhoto);
 
 // 获取相册图片
 router.get(

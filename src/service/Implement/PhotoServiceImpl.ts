@@ -36,6 +36,7 @@ class PhotoServiceImpl implements PhotoService {
 				album_id: id
 			},
 			attributes: ['id', 'album_id', 'photo_url', 'createdAt'],
+			order: [['createdAt', 'DESC']],
 			offset,
 			limit: pageSize
 		});

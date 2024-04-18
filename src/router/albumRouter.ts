@@ -12,10 +12,10 @@ const albumController = new AlbumController();
 router.post('/create', auth, albumController.createAlbum);
 
 // 更新相册
-router.post('/update', auth, validatorId, albumController.updateAlbum);
+router.post('/update', auth, albumController.updateAlbum);
 
 // 获取相册列表
-router.get(
+router.post(
 	'/getList/:pageNum?/:pageSize?',
 	validatorPage,
 	albumController.getAlbumList

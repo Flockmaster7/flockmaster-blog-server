@@ -44,7 +44,12 @@ class AlbumController {
 	async getAlbumList(ctx: Context) {
 		try {
 			const { pageSize, pageNum } = ctx.params;
-			const data = await albumService.getList(pageNum * 1, pageSize * 1);
+			const wrapper = ctx.request?.body?.wrapper;
+			const data = await albumService.getList(
+				pageNum * 1,
+				pageSize * 1,
+				wrapper
+			);
 			ctx.body = new Result(200, '获取相册列表成功', data);
 		} catch (error) {
 			ctx.app.emit('error', ERROR.getWorkListError, ctx, error);

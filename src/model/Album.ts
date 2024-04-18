@@ -15,7 +15,7 @@ export default class Album extends Model<Album> {
 		allowNull: true,
 		comment: '相册名称'
 	})
-	private album_name: string;
+	album_name: string;
 
 	@Column({
 		type: DataType.STRING,

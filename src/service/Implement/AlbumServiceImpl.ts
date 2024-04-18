@@ -1,6 +1,7 @@
 import AlbumService from '../AlbumService';
 import Album from '../../model/Album';
 import Photo from '../../model/Photo';
+import { Op } from 'sequelize';
 
 class AlbumServiceImpl implements AlbumService {
 	// 添加相册
@@ -26,11 +27,20 @@ class AlbumServiceImpl implements AlbumService {
 	}
 
 	// 获取相册列表
-	async getList(pageNum: number, pageSize: number) {
+	async getList(pageNum: number, pageSize: number, wrapper?: Partial<Album>) {
+		let filter = {};
+		if (wrapper) {
+			wrapper.album_name &&
+				Object.assign(filter, {
+					album_name: { [Op.like]: `%${wrapper.album_name}%` }
+				});
+		}
 		const offset = (pageNum - 1) * pageSize;
 		const { count, rows } = await Album.findAndCountAll({
 			offset,
+			where: filter,
 			limit: pageSize,
+			order: [['createdAt', 'DESC']],
 			attributes: ['id', 'album_name', 'album_cover', 'createdAt']
 		});
 		return {

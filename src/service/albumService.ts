@@ -12,7 +12,11 @@ interface AlbumService {
 	getDetail(id: number): Promise<Album | null>;
 
 	// 获取相册列表
-	getList(pageNum: number, pageSize: number): Promise<PageType<Album>>;
+	getList(
+		pageNum: number,
+		pageSize: number,
+		wrapper?: Partial<Album>
+	): Promise<PageType<Album>>;
 
 	// 删除相册
 	deleteWork(id: number): Promise<boolean>;
