@@ -137,5 +137,15 @@ export default {
 	addPermissionError: errorForm('10001', '添加权限失败', ''),
 	updatePermissionError: errorForm('10001', '修改权限失败', ''),
 	removePermissionError: errorForm('10001', '删除权限失败', ''),
+	getMessageListError: errorForm('10001', '获取消息列表失败', ''),
+	getMessageDetailError: errorForm('10001', '获取消息详情失败', ''),
+	addMessageError: errorForm('10001', '添加消息失败', ''),
+	updateMessageError: errorForm('10001', '修改消息失败', ''),
+	removeMessageError: errorForm('10001', '删除消息失败', ''),
+	getNoticeListError: errorForm('10001', '获取通知列表失败', ''),
+	getNoticeDetailError: errorForm('10001', '获取通知详情失败', ''),
+	addNoticeError: errorForm('10001', '添加通知失败', ''),
+	updateNoticeError: errorForm('10001', '修改通知失败', ''),
+	removeNoticeError: errorForm('10001', '删除通知失败', ''),
 	validatorParamsError: errorForm('11111', '参数错误', '')
 };

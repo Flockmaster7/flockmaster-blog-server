@@ -58,6 +58,8 @@ class UserServiceImpl implements UserService {
 				]
 			}
 		);
+		// 默认分配游客角色
+		await res.$add('roles', [15]);
 		return res.dataValues;
 	}
 
