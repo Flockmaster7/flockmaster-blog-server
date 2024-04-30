@@ -292,8 +292,16 @@ class UserServiceImpl implements UserService {
 	}
 
 	// 获取用户列表
-	async userList() {
-		const res = User.findAll({
+	async userList(pageNum: number, pageSize: number, wrapper?: Partial<User>) {
+		let filter = {};
+		if (wrapper) {
+			wrapper.name &&
+				Object.assign(filter, {
+					name: { [Op.like]: `%${wrapper?.name}%` }
+				});
+		}
+		const { rows, count } = await User.findAndCountAll({
+			where: filter,
 			attributes: [
 				'id',
 				'user_name',
@@ -311,9 +319,16 @@ class UserServiceImpl implements UserService {
 					as: 'roles',
 					attributes: ['id', 'name']
 				}
-			]
+			],
+			offset: (pageNum - 1) * pageSize,
+			limit: pageSize
 		});
-		return res;
+		return {
+			pageNum,
+			pageSize,
+			total: count,
+			rows
+		};
 	}
 }
 

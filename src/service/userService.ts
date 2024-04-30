@@ -50,7 +50,11 @@ interface UserService {
 	adminInfo(): Promise<Partial<User> | '未找到管理员信息'>;
 
 	// 获取用户列表
-	userList(): Promise<User[]>;
+	userList(
+		pageNum: number,
+		pageSize: number,
+		wrapper?: Partial<User>
+	): Promise<PageType<User>>;
 
 	userDetail(id: number): Promise<User | null>;
 }

@@ -100,6 +100,11 @@ router.get('/isFollow/:id?', auth, validatorId, userController.isFollowUser);
 router.get('/admin', userController.getAdminInfo);
 
 // 获取用户列表
-router.get('/getUserList', auth, userController.getUserList);
+router.post(
+	'/getUserList/:pageNum?/:pageSize?',
+	auth,
+	validatorPage,
+	userController.getUserList
+);
 
 module.exports = router;

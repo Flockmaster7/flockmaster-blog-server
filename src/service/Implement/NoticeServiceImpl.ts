@@ -19,7 +19,7 @@ class NoticeServiceImpl implements NoticeService {
 		}
 		const { rows, count } = await Notice.findAndCountAll({
 			where: filter,
-			attributes: ['id', 'is_read', 'createdAt', 'updatedAt'],
+			attributes: ['id', 'isRead', 'createdAt', 'updatedAt'],
 			include: [
 				{
 					model: User,

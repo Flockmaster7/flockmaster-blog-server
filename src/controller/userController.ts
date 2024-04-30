@@ -228,7 +228,13 @@ class UserController {
 	//获取用户列表
 	async getUserList(ctx: Context) {
 		try {
-			const data = await userService.userList();
+			const { wrapper } = ctx.request.body;
+			const { pageNum, pageSize } = ctx.params;
+			const data = await userService.userList(
+				Number(pageNum),
+				Number(pageSize),
+				wrapper
+			);
 			ctx.body = new Result(200, '获取用户列表成功', data);
 		} catch (error) {
 			ctx.app.emit('error', ERROR.getUserListError, ctx, error);
