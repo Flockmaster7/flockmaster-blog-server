@@ -52,13 +52,14 @@ class NoticeController {
 
 	async updateNotice(ctx: Context) {
 		try {
-			const { id, userId, messageId } = ctx.request.body;
+			const { id, userId, messageId, isRead } = ctx.request.body;
 			if (!id)
 				return ctx.app.emit('error', ERROR.FormValidatorError, ctx);
 			const notice = new Notice();
 			notice.id = id;
 			userId && (notice.userId = userId);
 			messageId && (notice.messageId = messageId);
+			isRead && (notice.isRead = isRead);
 			const res = await noticeService.updateNotice(notice);
 			if (res) {
 				ctx.body = new Result<string>(200, '修改通知成功', 'success');
@@ -81,6 +82,18 @@ class NoticeController {
 			}
 		} catch (error) {
 			ctx.app.emit('error', ERROR.removeNoticeError, ctx, error);
+		}
+	}
+
+	async getNoRead(ctx: Context) {
+		try {
+			const { userId } = ctx.request.body;
+			if (!userId)
+				return ctx.app.emit('error', ERROR.FormValidatorError, ctx);
+			const res = await noticeService.getNoReadByUserId(userId);
+			ctx.body = new Result(200, '获取未读条数成功', res);
+		} catch (error) {
+			ctx.app.emit('error', ERROR.getNoReadError, ctx, error);
 		}
 	}
 }

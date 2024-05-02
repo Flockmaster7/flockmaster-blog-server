@@ -15,6 +15,8 @@ interface NoticeService {
 	): Promise<PageType<Notice>>;
 
 	getDetail(id: number): Promise<Notice | null>;
+
+	getNoReadByUserId(userId: number): Promise<number>;
 }
 
 export default NoticeService;

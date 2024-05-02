@@ -21,4 +21,6 @@ router.post(
 
 router.delete('/delete/:id?', auth, validatorId, noticeController.removeNotice);
 
+router.post('/noReadNum', auth, noticeController.getNoRead);
+
 module.exports = router;

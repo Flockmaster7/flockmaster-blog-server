@@ -147,5 +147,6 @@ export default {
 	addNoticeError: errorForm('10001', '添加通知失败', ''),
 	updateNoticeError: errorForm('10001', '修改通知失败', ''),
 	removeNoticeError: errorForm('10001', '删除通知失败', ''),
+	getNoReadError: errorForm('10001', '获取未读条数失败', ''),
 	validatorParamsError: errorForm('11111', '参数错误', '')
 };

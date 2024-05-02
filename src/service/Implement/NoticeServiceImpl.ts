@@ -16,6 +16,10 @@ class NoticeServiceImpl implements NoticeService {
 				Object.assign(filter, {
 					isRead: wrapper.isRead
 				});
+			wrapper.userId &&
+				Object.assign(filter, {
+					userId: wrapper.userId
+				});
 		}
 		const { rows, count } = await Notice.findAndCountAll({
 			where: filter,
@@ -33,7 +37,11 @@ class NoticeServiceImpl implements NoticeService {
 				}
 			],
 			offset: (pageNum - 1) * pageSize,
-			limit: pageSize
+			limit: pageSize,
+			order: [
+				['isRead', 'ASC'],
+				['createdAt', 'DESC']
+			]
 		});
 		return {
 			pageNum,
@@ -92,6 +100,16 @@ class NoticeServiceImpl implements NoticeService {
 			}
 		});
 		return res[0] > 0 ? true : false;
+	}
+
+	async getNoReadByUserId(userId: number) {
+		const count = await Notice.count({
+			where: {
+				userId,
+				isRead: 0
+			}
+		});
+		return count;
 	}
 }
 
