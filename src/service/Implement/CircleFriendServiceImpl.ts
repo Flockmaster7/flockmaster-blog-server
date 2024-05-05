@@ -114,6 +114,10 @@ class CircleFriendServiceImpl implements CircleFriendService {
 				Object.assign(filter, {
 					content: { [Op.like]: `%${wrapper?.content}%` }
 				});
+			typeof wrapper.visible === 'number' &&
+				Object.assign(filter, {
+					visible: wrapper.visible
+				});
 		}
 		const { rows } = await CircleFriend.findAndCountAll({
 			where: filter,

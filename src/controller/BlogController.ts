@@ -77,6 +77,7 @@ class BlogController {
 				id,
 				title,
 				classify,
+				visible,
 				blog_image,
 				content_html,
 				content_text,
@@ -87,6 +88,7 @@ class BlogController {
 			title && (blog.title = title);
 			blog_image && (blog.blog_image = blog_image);
 			classify && (blog.classify = classify);
+			visible && (blog.visible = visible);
 			content_html && (blog.content_html = content_html);
 			content_text && (blog.content_text = content_text);
 			tags && (blog.tags = tags);
@@ -128,8 +130,11 @@ class BlogController {
 					tags,
 					user_id,
 					querySearch,
-					orderByRead
+					orderByRead,
+					visible
 				} = ctx.request.body;
+				typeof visible === 'number' &&
+					Object.assign(wrapper, { visible });
 				orderByRead && Object.assign(wrapper, { orderByRead });
 				querySearch && Object.assign(wrapper, { querySearch });
 				content_text && Object.assign(wrapper, { content_text });

@@ -29,6 +29,7 @@ export interface BlogFind {
 	classify?: string;
 	content_text?: string;
 	order?: string;
+	visible?: number;
 	tags?: number[];
 	querySearch?: string;
 	orderByRead?: boolean;

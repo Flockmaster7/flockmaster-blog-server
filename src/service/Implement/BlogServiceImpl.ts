@@ -91,6 +91,7 @@ class BlogServiceImpl implements BlogService {
 				'content_html',
 				'blog_collect',
 				'top',
+				'visible',
 				'createdAt',
 				'updatedAt'
 			],
@@ -130,6 +131,10 @@ class BlogServiceImpl implements BlogService {
 				author: {
 					[Op.like]: `%${wrapper?.author}%`
 				}
+			});
+		if (typeof wrapper.visible === 'number')
+			filter.push({
+				visible: wrapper.visible
 			});
 		if (wrapper.title)
 			filter.push({

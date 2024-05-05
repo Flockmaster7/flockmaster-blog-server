@@ -40,6 +40,14 @@ class CircleFriend extends Model<CircleFriend> {
 	})
 	top: number;
 
+	@Column({
+		type: DataType.INTEGER,
+		allowNull: true,
+		defaultValue: 0,
+		comment: '是否隐藏，0不隐藏，1隐藏'
+	})
+	visible: number;
+
 	@DeletedAt
 	@Column({
 		type: DataType.DATE,

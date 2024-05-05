@@ -58,9 +58,10 @@ export default class CircleFriendController {
 
 	async updateCircleFriend(ctx: Context) {
 		try {
-			const { id, content, videos, images } = ctx.request.body;
+			const { id, content, videos, images, visible } = ctx.request.body;
 			const circleFriend = new CircleFriend();
 			circleFriend.id = Number(id);
+			circleFriend.visible = visible;
 			circleFriend.content = content;
 			circleFriend.videos = videos;
 			circleFriend.images = images;
