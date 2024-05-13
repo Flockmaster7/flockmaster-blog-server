@@ -116,7 +116,7 @@ class BlogServiceImpl implements BlogService {
 			};
 		}
 
-		// 升序降序，默认降序
+		// 时间升序降序，默认降序
 		if (wrapper.order) option.order[1][1] = wrapper.order;
 		// 按热度排序
 		if (wrapper.orderByRead) option.order[1] = ['blog_read', 'DESC'];
