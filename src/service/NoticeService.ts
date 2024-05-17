@@ -2,9 +2,9 @@ import Notice from '../model/Notice';
 import { PageType } from '../types';
 
 interface NoticeService {
-	addNotice(permission: Notice): Promise<boolean>;
+	addNotice(notice: Notice): Promise<boolean>;
 
-	updateNotice(permission: Partial<Notice>): Promise<boolean>;
+	updateNotice(notice: Partial<Notice>): Promise<boolean>;
 
 	removeNotice(id: number): Promise<boolean>;
 

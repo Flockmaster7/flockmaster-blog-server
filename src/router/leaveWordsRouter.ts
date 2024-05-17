@@ -1,5 +1,5 @@
 import Router from 'koa-router';
-import { auth } from '../middleware/auth';
+import { auth, authPermission } from '../middleware/auth';
 import LeaveWordsController from '../controller/LeaveWordsController';
 import { validatorId, validatorPage } from '../middleware/validator';
 
@@ -7,12 +7,18 @@ const router = new Router({ prefix: '/api' });
 const leaveWordsController = new LeaveWordsController();
 
 // 文章留言
-router.post('/leaveWord', auth, leaveWordsController.addLeaveWord);
+router.post(
+	'/leaveWord',
+	auth,
+	authPermission,
+	leaveWordsController.addLeaveWord
+);
 
 // 修改留言
 router.post(
 	'/leaveWord/update/:id',
 	auth,
+	authPermission,
 	validatorId,
 	leaveWordsController.updateLeaveWord
 );
@@ -21,6 +27,7 @@ router.post(
 router.delete(
 	'/leaveWord/:id',
 	auth,
+	authPermission,
 	validatorId,
 	leaveWordsController.removeLeaveWord
 );

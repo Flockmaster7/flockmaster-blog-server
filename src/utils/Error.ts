@@ -7,6 +7,7 @@ const errorForm = (code: string | number, message: string, data: string) => {
 };
 
 export default {
+	permissionError: errorForm('10002', '暂无权限', ''),
 	userFormateError: errorForm('11111', '用户名或密码不能为空', ''),
 	userAlreadExist: errorForm('10001', '用户已经存在', ''),
 	userRegisterError: errorForm('10001', '用户注册失败', ''),

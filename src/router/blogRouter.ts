@@ -1,5 +1,5 @@
 import Router from 'koa-router';
-import { auth } from '../middleware/auth';
+import { auth, authPermission } from '../middleware/auth';
 import BlogController from '../controller/BlogController';
 import {
 	validatorBlogForm,
@@ -18,18 +18,31 @@ const commentController = new CommentController();
 router.post(
 	'/upload',
 	auth,
+	authPermission,
 	verifyUpload,
 	markdownRender,
 	blogController.uploadBlog
 );
 
 //上传文章封面
-router.post('/uploadImg', auth, verifyUploadImg, blogController.uploadBlogImg);
+router.post(
+	'/uploadImg',
+	auth,
+	authPermission,
+	verifyUploadImg,
+	blogController.uploadBlogImg
+);
 
 // 添加文章
-router.post('/create', auth, validatorBlogForm, blogController.createBlog);
+router.post(
+	'/create',
+	auth,
+	authPermission,
+	validatorBlogForm,
+	blogController.createBlog
+);
 
-router.post('/update', auth, blogController.updateBlog);
+router.post('/update', auth, authPermission, blogController.updateBlog);
 
 // 获取文章详情
 router.get('/getdetail/:id', validatorId, blogController.getBlogDetail);
@@ -49,7 +62,13 @@ router.post(
 );
 
 // 删除博客
-router.delete('/delete/:id?', auth, validatorId, blogController.removeBlog);
+router.delete(
+	'/delete/:id?',
+	auth,
+	authPermission,
+	validatorId,
+	blogController.removeBlog
+);
 
 // 文章阅读
 router.post('/read/:id?', validatorId, blogController.addBlogRead);
@@ -121,6 +140,7 @@ router.post('/comment', auth, commentController.blogComment);
 router.post(
 	'/comment/update/:id',
 	auth,
+	authPermission,
 	validatorId,
 	commentController.updateComment
 );
@@ -129,6 +149,7 @@ router.post(
 router.delete(
 	'/comment/:id',
 	auth,
+	authPermission,
 	validatorId,
 	commentController.removeComment
 );
@@ -170,9 +191,21 @@ router.post(
 
 router.get('/getUserDianzanIdList', auth, commentController.getDianzanList);
 
-router.post('/top/:id', auth, validatorId, blogController.topBlog);
+router.post(
+	'/top/:id',
+	auth,
+	authPermission,
+	validatorId,
+	blogController.topBlog
+);
 
-router.post('/cancelTop/:id', auth, validatorId, blogController.cancelTopBlog);
+router.post(
+	'/cancelTop/:id',
+	auth,
+	authPermission,
+	validatorId,
+	blogController.cancelTopBlog
+);
 
 router.post('/subfield/list', blogController.getSubfieldList);
 
@@ -188,13 +221,19 @@ router.post(
 	blogController.getBlogListBySubfield
 );
 
-router.post('/subfield/add', auth, blogController.addSubfield);
+router.post('/subfield/add', auth, authPermission, blogController.addSubfield);
 
-router.post('/subfield/update', auth, blogController.updateSubfield);
+router.post(
+	'/subfield/update',
+	auth,
+	authPermission,
+	blogController.updateSubfield
+);
 
 router.delete(
 	'/subfield/remove/:id',
 	auth,
+	authPermission,
 	validatorId,
 	blogController.removeSubfield
 );

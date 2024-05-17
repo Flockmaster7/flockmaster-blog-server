@@ -1,6 +1,6 @@
 import Router from 'koa-router';
 import WorkController from '../controller/WorkController';
-import { auth } from '../middleware/auth';
+import { auth, authPermission } from '../middleware/auth';
 import { validatorId, validatorPage } from '../middleware/workMiddleware';
 import { verifyUploadImg } from '../middleware/validator';
 
@@ -9,10 +9,10 @@ const router = new Router({ prefix: '/api/work' });
 const workController = new WorkController();
 
 // 添加作品
-router.post('/create', auth, workController.createWork);
+router.post('/create', auth, authPermission, workController.createWork);
 
 // 更新作品
-router.post('/update', auth, workController.updateWork);
+router.post('/update', auth, authPermission, workController.updateWork);
 
 // 获取作品详情
 router.get('/getDetail/:id?', validatorId, workController.getWorkDetail);
@@ -25,9 +25,21 @@ router.post(
 );
 
 // 删除作品
-router.delete('/delete/:id?', auth, validatorId, workController.removeWork);
+router.delete(
+	'/delete/:id?',
+	auth,
+	authPermission,
+	validatorId,
+	workController.removeWork
+);
 
 // 上传作品背景图片
-router.post('/uploadBgImg', auth, verifyUploadImg, workController.uploadBgImg);
+router.post(
+	'/uploadBgImg',
+	auth,
+	authPermission,
+	verifyUploadImg,
+	workController.uploadBgImg
+);
 
 module.exports = router;

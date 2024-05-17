@@ -10,6 +10,7 @@ import UserService from '../UserService';
 import UserRoleServiceImpl from './UserRoleServiceImpl';
 import Role from '../../model/Role';
 import UserFocusServiceImpl from './UserFocusServiceImpl';
+import Permission from '../../model/Permission';
 
 const userFocusService = new UserFocusServiceImpl();
 
@@ -91,7 +92,24 @@ class UserServiceImpl implements UserService {
 				'user_focus',
 				'user_fans'
 			],
-			where: wrapper
+			where: wrapper,
+			include: [
+				{
+					model: Role,
+					as: 'roles',
+					attributes: ['id', 'name'],
+					// 去除中间表
+					through: { attributes: [] },
+					include: [
+						{
+							model: Permission,
+							as: 'permissions',
+							attributes: ['id', 'name', 'action'],
+							through: { attributes: [] }
+						}
+					]
+				}
+			]
 		});
 		return res ? res.dataValues : null;
 	}

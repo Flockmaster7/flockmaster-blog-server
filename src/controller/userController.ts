@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { Context, Next } from 'koa';
+import { Context } from 'koa';
 import Result from '../utils/Result';
 import ERROR from '../utils/Error';
 import processEnv from '../config/config.default';

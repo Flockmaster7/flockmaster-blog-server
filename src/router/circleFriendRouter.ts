@@ -1,7 +1,7 @@
 import Router from 'koa-router';
 import { validatorId, validatorPage } from '../middleware/validator';
 import CircleFriendController from '../controller/CircleFriendController';
-import { auth } from '../middleware/auth';
+import { auth, authPermission } from '../middleware/auth';
 
 const router = new Router({ prefix: '/api/circleFriend' });
 
@@ -20,13 +20,24 @@ router.get(
 	circleFriendController.getCircleFriendDetail
 );
 
-router.post('/add', auth, circleFriendController.postCircleFriend);
+router.post(
+	'/add',
+	auth,
+	authPermission,
+	circleFriendController.postCircleFriend
+);
 
-router.post('/update', auth, circleFriendController.updateCircleFriend);
+router.post(
+	'/update',
+	auth,
+	authPermission,
+	circleFriendController.updateCircleFriend
+);
 
 router.delete(
 	'/remove/:id',
 	auth,
+	authPermission,
 	validatorId,
 	circleFriendController.deleteCircleFriend
 );
@@ -54,6 +65,7 @@ router.post(
 router.post(
 	'/top/:id',
 	auth,
+	authPermission,
 	validatorId,
 	circleFriendController.topCircleFriend
 );
@@ -61,17 +73,24 @@ router.post(
 router.post(
 	'/cancelTop/:id',
 	auth,
+	authPermission,
 	validatorId,
 	circleFriendController.cancelTopCircleFriend
 );
 
 router.post('/comment/add', auth, circleFriendController.postComment);
 
-router.post('/comment/update', auth, circleFriendController.updateComment);
+router.post(
+	'/comment/update',
+	auth,
+	authPermission,
+	circleFriendController.updateComment
+);
 
 router.delete(
 	'/comment/remove/:id',
 	auth,
+	authPermission,
 	circleFriendController.removeComment
 );
 

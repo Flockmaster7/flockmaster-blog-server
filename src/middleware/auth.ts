@@ -2,8 +2,9 @@ import { Context, Next } from 'koa';
 import jwt from 'jsonwebtoken';
 import processEnv from '../config/config.default';
 import ERROR from '../utils/Error';
+import Permission from '../model/Permission';
 
-// 判断token
+// 判断token，校验是否登录
 const auth = async (ctx: Context, next: Next) => {
 	const { authorization = '' } = ctx.request.header;
 	const token = authorization.replace('Bearer ', '');
@@ -34,4 +35,19 @@ const isAdmin = async (ctx: Context, next: Next) => {
 	await next();
 };
 
-export { auth, isAdmin };
+// 校验是否有权限
+const authPermission = async (ctx: Context, next: Next) => {
+	const permissionList: Permission[] = ctx.state.user?.roles[0]?.permissions;
+	if (!permissionList)
+		return ctx.app.emit('error', ERROR.permissionError, ctx);
+	const res = permissionList.some((item: Permission) => {
+		return ctx.request.url.includes(item.action);
+	});
+	if (res) {
+		await next();
+	} else {
+		return ctx.app.emit('error', ERROR.permissionError, ctx);
+	}
+};
+
+export { auth, isAdmin, authPermission };

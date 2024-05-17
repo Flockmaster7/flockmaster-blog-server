@@ -8,7 +8,7 @@ import {
 	userIsExist,
 	userIsExistById
 } from '../middleware/userMiddleware';
-import { auth, isAdmin } from '../middleware/auth';
+import { auth, authPermission, isAdmin } from '../middleware/auth';
 import {
 	validatorId,
 	validatorPage,

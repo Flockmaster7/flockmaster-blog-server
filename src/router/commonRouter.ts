@@ -1,6 +1,6 @@
 import Router from 'koa-router';
 import CommonController from '../controller/CommonController';
-import { auth } from '../middleware/auth';
+import { auth, authPermission } from '../middleware/auth';
 import { verifyUpload } from '../middleware/validator';
 
 const router = new Router({ prefix: '/api/common' });
@@ -17,6 +17,12 @@ router.get('/getLatestComment', commonController.getLatestComment);
 
 router.get('/getHotBlogs', commonController.getHotBlogs);
 
-router.post('/fileUpload', auth, verifyUpload, commonController.upload);
+router.post(
+	'/fileUpload',
+	auth,
+	authPermission,
+	verifyUpload,
+	commonController.upload
+);
 
 module.exports = router;

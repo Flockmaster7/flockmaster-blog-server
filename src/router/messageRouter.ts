@@ -1,5 +1,5 @@
 import Router from 'koa-router';
-import { auth } from '../middleware/auth';
+import { auth, authPermission } from '../middleware/auth';
 import { validatorId, validatorPage } from '../middleware/validator';
 import MessageController from '../controller/MessageController';
 
@@ -7,9 +7,9 @@ const router = new Router({ prefix: '/api/message' });
 
 const messageController = new MessageController();
 
-router.post('/create', auth, messageController.createMessage);
+router.post('/create', auth, authPermission, messageController.createMessage);
 
-router.post('/update', auth, messageController.updateMessage);
+router.post('/update', auth, authPermission, messageController.updateMessage);
 
 router.get('/getDetail/:id?', validatorId, messageController.getMessageDetail);
 
@@ -22,6 +22,7 @@ router.post(
 router.delete(
 	'/delete/:id?',
 	auth,
+	authPermission,
 	validatorId,
 	messageController.removeMessage
 );
