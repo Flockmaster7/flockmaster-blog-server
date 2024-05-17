@@ -107,7 +107,6 @@ class CircleFriendServiceImpl implements CircleFriendService {
 		pageSize: number,
 		wrapper?: Partial<CircleFriend>
 	): Promise<PageType<CircleFriend>> {
-		const total = await CircleFriend.count();
 		let filter = {};
 		if (wrapper) {
 			wrapper.content &&
@@ -119,6 +118,9 @@ class CircleFriendServiceImpl implements CircleFriendService {
 					visible: wrapper.visible
 				});
 		}
+		const total = await CircleFriend.count({
+			where: filter
+		});
 		const { rows } = await CircleFriend.findAndCountAll({
 			where: filter,
 			attributes: {
