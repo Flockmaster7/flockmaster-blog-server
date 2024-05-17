@@ -33,6 +33,12 @@ class CommentServiceImpl implements CommentService {
 							'(SELECT COUNT(*) FROM comment_dianzan WHERE comment_dianzan.comment_id = Comment.id)'
 						),
 						'dianzanCount'
+					],
+					[
+						sequelize.literal(
+							'(SELECT COUNT(*) FROM comment AS ChildComment WHERE ChildComment.parent_id = Comment.id)'
+						),
+						'childrenCount'
 					]
 				]
 			},
